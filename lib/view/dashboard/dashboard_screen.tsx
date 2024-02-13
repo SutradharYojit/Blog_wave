@@ -4,15 +4,12 @@ import { RoutesName } from "../../resources/route_names";
 import PortfolioScreen from "../portfolio/portfolio_screen";
 import BlogListingScreen from "../blog_listing/blog_listing";
 import UserProfileScreen from "../user_profile/user_profile_screen";
-
-
 import Icons from 'react-native-vector-icons/FontAwesome'
-import { Image, View } from "react-native";
+import { Image } from "react-native";
 
 
 const DashboardScreen = (props: any) => {
     const bottomTab = createBottomTabNavigator();
-
     return (
         <bottomTab.Navigator screenOptions={({ route }) => ({
             headerLeft: () => <Image style={{ width: 40, height: 40, marginLeft: 10 }} source={require('../../../assets/icons/blogger.png')} />,
