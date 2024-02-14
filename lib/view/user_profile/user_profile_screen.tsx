@@ -7,21 +7,23 @@ import { RoutesName } from "../../resources/route_names";
 
 const UserProfileScreen = (props: any) => {
 
-
     let dataList = [
-        { id: 1, icon: "edit-note", path: RoutesName.eFditProfileScreen, label: "Edit Profile" },
-        { id: 2, icon: "library-books", path: "None", label: "Projects" },
-        { id: 3, icon: "add-task", path: "None", label: "Add Blog" },
+        {
+            id: 1, icon: "edit-note", path: RoutesName.eFditProfileScreen, label: "Edit Profile"
+        },
+        {
+            id: 2, icon: "library-books", path: RoutesName.ProjectListingScreen, label: "Projects"
+        },
+        {
+            id: 3, icon: "add-task", path: RoutesName.addBlogScreen, label: "Add Blog"
+        },
     ];
 
     const [logoutDialogVisible, setLogoutDialogVisible] = useState(false);
 
     const handleLogout = () => {
-        // Perform logout action here
         console.log("Logging out...");
-        // Close the dialog
         setLogoutDialogVisible(false);
-        // Redirect to login screen or perform any necessary action
     };
     return (
         <SafeAreaView style={styles.container}>
@@ -57,7 +59,23 @@ const UserProfileScreen = (props: any) => {
                 <View>
                     <FlatList
                         data={dataList}
-                        renderItem={(data) => <Card icon={data.item.icon} label={data.item.label} path={data.item.path}  ></Card>
+                        renderItem={(data) => <TouchableOpacity onPress={() => {
+                            props.navigation.navigate(data.item.path);
+                        }} >
+                            <View style={{ flexDirection: 'row', padding: 12, justifyContent: 'space-between' }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }} >
+                                    <Icons name={data.item.icon} size={30} color={'black'} ></Icons>
+                                    <Text style={{
+                                        fontSize: 18,
+                                        color: 'black',
+                                        paddingLeft: 10
+                                    }}>
+                                        {data.item.label}
+                                    </Text>
+                                </View>
+                                <Icons name="chevron-right" size={30} color={'black'} ></Icons>
+                            </View>
+                        </TouchableOpacity >
                         }
                     ></FlatList>
                 </View>
@@ -96,17 +114,14 @@ const UserProfileScreen = (props: any) => {
     );
 }
 
-const Card = (props: any) => {
+/* const Card = (props: any) => {
     const icon = props.icon;
     const label = props.label;
     const path = props.path;
-
+    const navigation = props.navigation;
 
     return (
-        <TouchableOpacity onPress={() => {
-            console.log(path)
-            // props.navigation.navigate(path);
-        }}>
+        <TouchableOpacity onPress={() => navigation.navigate(path)} >
             <View style={{ flexDirection: 'row', padding: 12, justifyContent: 'space-between' }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }} >
                     <Icons name={icon} size={30} color={'black'} ></Icons>
@@ -120,8 +135,8 @@ const Card = (props: any) => {
                 </View>
                 <Icons name="chevron-right" size={30} color={'black'} ></Icons>
             </View>
-        </TouchableOpacity>
+        </TouchableOpacity >
     );
 }
-
+ */
 export default UserProfileScreen;

@@ -22,7 +22,7 @@ const BloggerProfileScreen = () => {
     ];
     return (
         <SafeAreaView style={styles.container}>
-   {/*          <Appbar.Header>
+            {/*          <Appbar.Header>
                 <Appbar.BackAction onPress={() => { }} />
                 <Appbar.Content title="Title" />
                 <Appbar.Action icon="calendar" onPress={() => { }} />
@@ -84,7 +84,9 @@ const BloggerProfileScreen = () => {
                                     <Text numberOfLines={1} style={{ fontSize: 18, color: 'blue', flex: 1, textDecorationLine: 'underline' }}>  : https://copyprogramming.com/howto/is-there-a-way-to-set-a-font-globally-in-react-native</Text>
                                 </TouchableNativeFeedback>
                             </View>
-                        </View>} ></FlatList>
+                        </View>} >
+
+                </FlatList>
 
             </View>
         </SafeAreaView >

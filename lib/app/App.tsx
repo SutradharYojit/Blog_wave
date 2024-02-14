@@ -10,6 +10,9 @@ import BloggerProfileScreen from '../view/blogger_profile/blogger_profile_screen
 import { Text } from 'react-native';
 import BloggercontactScreen from '../view/blogger_contact/blogger_contact_screen';
 import EditProfileScreen from '../view/user_profile/edit_profile_screen';
+import ProjectListingScreen from '../view/project/project_listing_screen';
+import AddBlogScreen from '../view/add_blog/add_blog_screen';
+import BlogDetailsScreen from '../view/blog_details/blog_details_screen';
 
 function App(): React.JSX.Element {
 
@@ -21,7 +24,8 @@ function App(): React.JSX.Element {
         <ScreenStack.Navigator>
           <ScreenStack.Screen name={RoutesName.splashScreen}
             component={SplashScreen}
-            options={{ headerShown: false }} ></ScreenStack.Screen>
+            options={{ headerShown: false }} >
+          </ScreenStack.Screen>
           <ScreenStack.Screen name={RoutesName.loginScreen}
             component={LoginScreen}
             options={{ headerShown: false }} ></ScreenStack.Screen>
@@ -48,9 +52,27 @@ function App(): React.JSX.Element {
           <ScreenStack.Screen name={RoutesName.eFditProfileScreen}
             component={EditProfileScreen}
             options={{
-              title: "Edit",
-              headerShown: false
-            }} ></ScreenStack.Screen>
+              title: "Edit Profile",
+            }} >
+          </ScreenStack.Screen>
+          <ScreenStack.Screen name={RoutesName.ProjectListingScreen}
+            component={ProjectListingScreen}
+            options={{
+              title: "Projects",
+            }} >
+          </ScreenStack.Screen>
+          <ScreenStack.Screen name={RoutesName.addBlogScreen}
+            component={AddBlogScreen}
+            options={{
+              title: "Add Blog",
+            }} >
+          </ScreenStack.Screen>
+          <ScreenStack.Screen name={RoutesName.blogDetailsScreen}
+            component={BlogDetailsScreen}
+            options={{
+              title: "Blog",
+            }} >
+          </ScreenStack.Screen>
         </ScreenStack.Navigator>
       }
     </NavigationContainer>

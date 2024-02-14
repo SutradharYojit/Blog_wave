@@ -9,4 +9,8 @@ export class RoutesName {
     static bloggerProfileScreen = "BloggerProfileScreen";
     static bloggerContactScreen = "BloggerContactScreen";
     static eFditProfileScreen = "EditProfileScreen";
+    static ProjectListingScreen = "ProjectListingScreen";
+    static addBlogScreen = "AddBlogScreen";
+    static blogDetailsScreen = "BlogDetailsScreen";
+
 }
