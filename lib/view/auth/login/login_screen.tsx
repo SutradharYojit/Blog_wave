@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../../resources/style";
 import { StringManager } from "../../../resources/string_manager";
 import { RoutesName } from "../../../resources/route_names";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserData } from "../../../redux/action/action";
+import {
+    Button,
+    Dialog,
+    CheckBox,
+    ListItem,
+    Avatar,
+} from '@rneui/themed';
 
 
 const LoginScreen = (props: any) => {
+    const dispatch = useDispatch();
+    const toggleDialog3 = () => {
+        setVisible3(!visible3);
+    };
+    let [userEmail, setMail] = useState('');
+    let [userPass, setPass] = useState('');
+    const [visible3, setVisible3] = useState(false);
+    const loading = useSelector((state: any) => state.Auth.loading)
 
     return (
         <SafeAreaView style={styles.container}>
@@ -19,7 +36,7 @@ const LoginScreen = (props: any) => {
                 <TextInput
                     style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
                     onChangeText={(Text) => {
-                        // setEmail(Text)
+                        setMail(Text)
                     }}
                     // value={'asdasd}
                     placeholder='Email'>
@@ -27,15 +44,15 @@ const LoginScreen = (props: any) => {
                 <TextInput
                     style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
                     onChangeText={(Text) => {
-                        // setEmail(Text)
+                        setPass(Text)
                     }}
                     // value={'asdasd}
                     placeholder='Passsword'>
                 </TextInput>
                 <View style={{ alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => {
-                        props.navigation.navigate(RoutesName.dashboardScreen);
-
+                        console.log("asdasd")
+                        dispatch(getUserData(props.navigation, { email: userEmail, pass: userPass }));
                     }} style={{
                         height: 65,
                         width: 250,
@@ -48,7 +65,6 @@ const LoginScreen = (props: any) => {
                         <Text style={{ color: 'white', fontSize: 19 }} >Login</Text>
                     </TouchableOpacity>
                 </View>
-
                 <View style={{ marginTop: 10, flexDirection: 'row', justifyContent: 'center' }}>
                     <Text style={{ fontSize: 16, color: 'teal', fontWeight: "400" }}>
                         Don't have an account?{' '}
@@ -63,6 +79,9 @@ const LoginScreen = (props: any) => {
                         }}>SignUp</Text>
                     </TouchableOpacity>
                 </View>
+                <Dialog isVisible={loading} onBackdropPress={toggleDialog3}>
+                    <Dialog.Loading />
+                </Dialog>
             </View>
         </SafeAreaView>
     );

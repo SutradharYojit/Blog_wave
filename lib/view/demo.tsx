@@ -1,61 +1,191 @@
-// import React from "react";
-// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React, { useState } from 'react';
+import {
+Button,
+Dialog,
+CheckBox,
+ListItem,
+Avatar,
+} from '@rneui/themed';
+import { View, Text, StyleSheet } from 'react-native';
 
-// import Home from './Home'
-// import Create from './Create'
-// import Messages from './Messages'
-// import Forum from './Forum'
-// import Profile from './Profile'
-// import LottieView from "lottie-react-native";
-// import Icon from 'react-native-vector-icons/Feather';
+type DialogComponentProps = {};
 
-// const Tabs = createBottomTabNavigator();
+const Dialogs: React.FunctionComponent<DialogComponentProps> = () => {
+const [visible1, setVisible1] = useState(false);
+const [visible2, setVisible2] = useState(false);
+const [visible3, setVisible3] = useState(false);
+const [visible4, setVisible4] = useState(false);
+const [visible5, setVisible5] = useState(false);
+const [visible6, setVisible6] = useState(false);
+const [checked, setChecked] = useState(1);
 
-// export default function App() {
-//     return (
+const toggleDialog1 = () => {
+  setVisible1(!visible1);
+};
+const toggleDialog2 = () => {
+  setVisible2(!visible2);
+};
+const toggleDialog3 = () => {
+  setVisible3(!visible3);
+};
+const toggleDialog4 = () => {
+  setVisible4(!visible4);
+};
+const toggleDialog5 = () => {
+  setVisible5(!visible5);
+};
+const toggleDialog6 = () => {
+  setVisible6(!visible6);
+};
 
-//         <Tabs.Navigator
+const userlist = [
+  {
+    name: 'Amy Farha',
+    avatar_url: 'https://uifaces.co/our-content/donated/XdLjsJX_.jpg',
+    subtitle: 'amy.farha@gmail.com',
+  },
+  {
+    name: 'Chris Jackson',
+    avatar_url: 'https://uifaces.co/our-content/donated/KtCFjlD4.jpg',
+    subtitle: 'cjackson@gmail.com',
+  },
+  {
+    name: 'Amanda Martin',
+    avatar_url:
+      'https://images.unsplash.com/photo-1498529605908-f357a9af7bf5?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=047fade70e80ebb22ac8f09c04872c40',
+    subtitle: 'amandam@gmail.com',
+  },
+];
 
-//             screenOptions={({ route }) => ({
-//                 tabBarShowLabel: false,
-//                 tabBarHideOnKeyboard: true,
-//                 style: {
-//                     borderRadius: 15,
-//                     height: 90,
-//                 },
-//                 tabBarIcon: ({ focused, color, size }) => {
-//                     let iconName;
+return (
+  <View>
+    <View style={styles.buttonContainer}>
+      <Button
+        title="Open Simple Dialog"
+        onPress={toggleDialog1}
+        buttonStyle={styles.button}
+      />
+      <Button
+        title="Open Mutli Action Dialog"
+        onPress={toggleDialog2}
+        buttonStyle={styles.button}
+      />
+      <Button
+        title="Open Loading Dialog"
+        onPress={toggleDialog3}
+        buttonStyle={styles.button}
+      />
+      <Button
+        title="Open Buttonless Dialog"
+        onPress={toggleDialog4}
+        buttonStyle={styles.button}
+      />
+      <Button
+        title="Open Custom Dialog 1"
+        onPress={toggleDialog5}
+        buttonStyle={styles.button}
+      />
+      <Button
+        title="Open Custom Dialog 2"
+        onPress={toggleDialog6}
+        buttonStyle={styles.button}
+      />
+    </View>
+    <Dialog
+      isVisible={visible1}
+      onBackdropPress={toggleDialog1}
+    >
+      <Dialog.Title title="Dialog Title"/>
+      <Text>Dialog body text. Add relevant information here.</Text>
+    </Dialog>
+    <Dialog
+      isVisible={visible2}
+      onBackdropPress={toggleDialog2}
+    >
+      <Dialog.Title title="Dialog Title"/>
+      <Text>Dialog body text. Add relevant information here.</Text>
+      <Dialog.Actions>
+        <Dialog.Button title="ACTION 1" onPress={() => console.log('Primary Action Clicked!')}/>
+        <Dialog.Button title="ACTION 2" onPress={() => console.log('Secondary Action Clicked!')}/>
+      </Dialog.Actions>
+    </Dialog>
+    <Dialog isVisible={visible3} onBackdropPress={toggleDialog3}>
+      <Dialog.Loading />
+    </Dialog>
+    <Dialog
+      isVisible={visible4}
+      onBackdropPress={toggleDialog4}
+    >
+      <Dialog.Title title="Dialog Title"/>
+      <Text>Dialog body text. Add relevant information here.</Text>
+    </Dialog>
+    <Dialog
+      isVisible={visible5}
+      onBackdropPress={toggleDialog5}
+    >
+      <Dialog.Title title="Select Preference"/>
+      {['Option 1', 'Option 2', 'Option 3'].map((l, i) => (
+        <CheckBox
+          key={i}
+          title={l}
+          containerStyle={{ backgroundColor: 'white', borderWidth: 0 }}
+          checkedIcon="dot-circle-o"
+          uncheckedIcon="circle-o"
+          checked={checked === i + 1}
+          onPress={() => setChecked(i + 1)}
+        />
+      ))}
 
-//                     switch (route.name) {
-//                         case 'Home':
-//                             iconName = 'home';
-//                             break;
-//                         case 'Messages':
-//                             iconName = 'message-circle';
-//                             break;
-//                         case 'Create':
-//                             iconName = 'home';
-//                             break;
-//                         case 'Forum':
-//                             iconName = 'activity';
-//                             break;
-//                         case 'Profile':
-//                             iconName = 'user';
-//                             break;
-//                         default:
-//                             break;
-//                     }
-//                     // return <Ionicons name={iconName} size={size} color={color} />;
-//                     // return <LottieView source={filePath} loop={false} autoPlay={focused} />;
-//                     return <Icon name={iconName} color={color} size={24} />;
-//                 },
-//             })}
-//         >
-//             <Tabs.Screen name="Home" component={Home} />
-//             <Tabs.Screen name="Messages" component={Messages} />
-//             <Tabs.Screen name="Create" component={Create} />
-//             <Tabs.Screen name="Forum" component={Forum} />
-//             <Tabs.Screen name="Profile" component={Profile} />
-//         </Tabs.Navigator>
-//     );
-// }
+      <Dialog.Actions>
+        <Dialog.Button
+          title="CONFIRM"
+          onPress={() => {
+            console.log(`Option ${checked} was selected!`);
+            toggleDialog5();
+          }}
+        />
+        <Dialog.Button title="CANCEL" onPress={toggleDialog5} />
+      </Dialog.Actions>
+    </Dialog>
+    <Dialog
+      isVisible={visible6}
+      onBackdropPress={toggleDialog6}
+    >
+      <Dialog.Title title="Choose Account"/>
+      {userlist.map((l, i) => (
+        <ListItem
+          key={i}
+          containerStyle={{
+            marginHorizontal: -10,
+            borderRadius: 8,
+          }}
+          onPress={toggleDialog6}
+        >
+          <Avatar rounded source={{ uri: l.avatar_url }} />
+          <ListItem.Content>
+            <ListItem.Title style={{ fontWeight: '700' }}>
+              {l.name}
+            </ListItem.Title>
+            <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
+          </ListItem.Content>
+        </ListItem>
+      ))}
+    </Dialog>
+  </View>
+);
+};
+
+const styles = StyleSheet.create({
+button: {
+  borderRadius: 6,
+  width: 220,
+  margin: 20,
+},
+buttonContainer: {
+  margin: 20,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+});
+
+export default Dialogs;

@@ -13,7 +13,6 @@ const WebViewScreen = () => {
             </View>
         </SafeAreaView >
     );
-
 }
 
 export default WebViewScreen;

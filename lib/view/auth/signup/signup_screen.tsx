@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../../resources/style";
 import { StringManager } from "../../../resources/string_manager";
 import { RoutesName } from "../../../resources/route_names";
+import { useDispatch, useSelector } from "react-redux";
+import { getSignupUser } from "../../../redux/action/action";
 
 
 const SignUpScreen = (props: any) => {
+    let [userName, setName] = useState('');
+    let [userEmail, setMail] = useState('');
+    let [userPass, setPass] = useState('');
+
+    const dispatch = useDispatch();
 
     return (
         <SafeAreaView style={styles.container}>
@@ -19,7 +26,7 @@ const SignUpScreen = (props: any) => {
                 <TextInput
                     style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
                     onChangeText={(Text) => {
-                        // setEmail(Text)
+                        setName(Text)
                     }}
                     // value={'asdasd}
                     placeholder='UserName'>
@@ -27,7 +34,7 @@ const SignUpScreen = (props: any) => {
                 <TextInput
                     style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
                     onChangeText={(Text) => {
-                        // setEmail(Text)
+                        setMail(Text)
                     }}
                     // value={'asdasd}
                     placeholder='Email'>
@@ -35,7 +42,7 @@ const SignUpScreen = (props: any) => {
                 <TextInput
                     style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
                     onChangeText={(Text) => {
-                        // setEmail(Text)
+                        setPass(Text)
                     }}
                     // value={'asdasd}
                     placeholder='Passsword'>
@@ -49,7 +56,12 @@ const SignUpScreen = (props: any) => {
                         alignItems: 'center',
                         justifyContent: 'center',
                         borderRadius: 15
-                    }}>
+
+                    }}
+                        onPress={() => {
+                            dispatch(getSignupUser(props.navigation, { name: userName, email: userEmail, pass: userPass }));
+
+                        }}>
                         <Text style={{ color: 'white', fontSize: 19 }} >SingUp</Text>
                     </TouchableOpacity>
                 </View>
