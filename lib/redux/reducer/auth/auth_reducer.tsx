@@ -10,7 +10,6 @@ const initialState = {
 
 const Authreducer = (state = initialState, action: any) => {
     switch (action.type) {
-
         case SET_LOGIN_USER:
             return {
                 ...state,

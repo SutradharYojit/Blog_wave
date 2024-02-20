@@ -3,8 +3,13 @@ import { FlatList, Image, Text, TouchableNativeFeedback, View } from "react-nati
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../resources/style";
 import { Appbar } from 'react-native-paper';
+import { UserModel } from "../../model/user_model";
 
-const BloggerProfileScreen = () => {
+const BloggerProfileScreen = (props: any) => {
+
+    const { userData } = props.route.params;
+    console.log(userData.item);
+    const userInfo: UserModel = userData.item
 
     let dataList = [
         { id: 1, name: "Yojit", surname: "Suthar" },
@@ -34,7 +39,7 @@ const BloggerProfileScreen = () => {
                 // backgroundColor: 'white',
                 // padding: 15
             }}>
-                <View style={{ /* backgroundColor: 'grey', */ flexDirection: 'row', }}>
+                <View style={{ flexDirection: 'row', }}>
                     <View style={{ height: 90, width: 90, backgroundColor: 'brown', borderRadius: 50 }}>
                         <Image
                             width={90}
@@ -47,22 +52,22 @@ const BloggerProfileScreen = () => {
                     </View>
                     <View style={{ paddingLeft: 10, paddingTop: 8 }}>
                         <Text style={{ fontSize: 20, fontWeight: '700', color: 'black' }}>
-                            Divyansh Chaudhary
+                            {userInfo.userName}
                         </Text>
                         <Text style={{ fontSize: 18, fontWeight: '700', paddingTop: 5 }}>
-                            Divyansh@gmail.com
+                            {userInfo.email}
                         </Text>
                     </View>
 
 
                 </View>
 
-                <View style={{ /* backgroundColor: 'green', */ paddingTop: 15 }}>
+                <View style={{ paddingTop: 15 }}>
                     <Text style={{ fontSize: 20, color: 'black', fontWeight: '700' }}>
                         Bio
                     </Text>
                     <Text style={{ fontSize: 18, color: 'black' }}>
-                        er since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+                        {userInfo.bio}
                     </Text>
                 </View>
                 <Text style={{ fontSize: 20, color: 'black', fontWeight: '700', paddingVertical: 8 }}>
@@ -79,7 +84,7 @@ const BloggerProfileScreen = () => {
                             <View style={{ flexDirection: 'row', }}>
                                 <Image style={{ width: 23, height: 23, marginLeft: 10 }} source={require('../../../assets/icons/url.png')} />
                                 <TouchableNativeFeedback onPress={() => {
-                                    console.log("Press for the webview")
+                                    // console.log("asdas" + )
                                 }}>
                                     <Text numberOfLines={1} style={{ fontSize: 18, color: 'blue', flex: 1, textDecorationLine: 'underline' }}>  : https://copyprogramming.com/howto/is-there-a-way-to-set-a-font-globally-in-react-native</Text>
                                 </TouchableNativeFeedback>

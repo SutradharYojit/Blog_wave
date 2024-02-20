@@ -1,20 +1,32 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, Image, LayoutAnimation } from "react-native";
+import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LottieView from "lottie-react-native";
 import { StringManager } from "../../resources/string_manager";
-import { fontFamily } from "../../resources/assets_manager";
-import { ColorManager } from "../../resources/color_manager";
 import { RoutesName } from "../../resources/route_names";
 import { styles } from "../../resources/style";
+import { UserPreference } from "../../services/user_preference";
 
 const SplashScreen = (props: any) => {
+    const userPreference = new UserPreference();
 
     const handleClick = async () => {
-        setTimeout(() => {
-            props.navigation.navigate(RoutesName.loginScreen);
-        }, 2000
-        );
+        await userPreference.getUserInfo();
+        console.log(UserPreference.loggedIn);
+        console.log(Boolean(UserPreference.loggedIn));
+
+        if (Boolean(UserPreference.loggedIn) == true) {
+            setTimeout(() => {
+                props.navigation.replace(RoutesName.dashboardScreen);
+            }, 2000
+            );
+        }
+        else {
+            setTimeout(() => {
+                props.navigation.replace(RoutesName.loginScreen);
+            }, 2000
+            );
+        }
     };
 
     useEffect(() => {

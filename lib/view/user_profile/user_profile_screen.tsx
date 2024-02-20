@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, FlatList, Image, Modal, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../resources/style";
 import Icons from 'react-native-vector-icons/MaterialIcons'
 import { RoutesName } from "../../resources/route_names";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserInfo } from "../../redux/action/action";
+import { UserModel } from "../../model/user_model";
 
 const UserProfileScreen = (props: any) => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getUserInfo());
+    }, [])
+
+    const currentUser: UserModel = useSelector((state: any) => state.User[0]);
+
 
     let dataList = [
         {
@@ -41,10 +53,10 @@ const UserProfileScreen = (props: any) => {
                     </View>
                     <View style={{ paddingLeft: 10, paddingTop: 8 }}>
                         <Text style={{ fontSize: 20, fontWeight: '700', color: 'black' }}>
-                            Divyansh Chaudhary
+                            {currentUser.userName}
                         </Text>
                         <Text style={{ fontSize: 18, fontWeight: '700', paddingTop: 5 }}>
-                            Divyansh@gmail.com
+                            {currentUser.email}
                         </Text>
                     </View>
                 </View>
@@ -53,7 +65,7 @@ const UserProfileScreen = (props: any) => {
                         Bio
                     </Text>
                     <Text style={{ fontSize: 18, color: 'black' }}>
-                        er since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+                        {currentUser.bio}
                     </Text>
                 </View>
                 <View>

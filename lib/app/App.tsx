@@ -41,7 +41,7 @@ function App(): React.JSX.Element {
             <ScreenStack.Screen name={RoutesName.bloggerProfileScreen}
               component={BloggerProfileScreen}
               options={{
-                title: "Yojit suthar",
+                title: "Profile",
                 headerRight: () => <Text style={{
                   color: 'teal',
                   fontSize: 19,

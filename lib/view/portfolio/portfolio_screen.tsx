@@ -1,26 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FlatList, Image, Text, TouchableHighlight, TouchableNativeFeedback, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { styles } from "../../resources/style";
 import { RoutesName } from "../../resources/route_names";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUser } from "../../redux/action/action";
+import { UserModel } from "../../model/user_model";
 
 
 const PortfolioScreen = (props: any) => {
+    const dispatch = useDispatch();
 
-    let dataList = [
-        { id: 1, name: "Yojit", surname: "Suthar" },
-        { id: 2, name: "Jimmy", surname: "Sutradhar" },
-        { id: 3, name: "Viral", surname: "Suthar" },
-        { id: 4, name: "Ashish", surname: "Ojha" },
-        { id: 5, name: "Rahul", surname: "" },
-        { id: 6, name: "A", surname: "" },
-        { id: 7, name: "B", surname: "" },
-        { id: 8, name: "C", surname: "" },
-        { id: 9, name: "D", surname: "" },
-        { id: 10, name: "D", surname: "" },
-        { id: 11, name: "D", surname: "" },
-        { id: 12, name: "D", surname: "" },
-    ];
+    useEffect(() => {
+        dispatch(getAllUser());
+    }, [])
+
+    const datal: UserModel[] = useSelector((state: any) => state.Users);
+    // const datal: UserModel[] = useSelector((state: any) => console.log(state));
+
+
     return (
         <SafeAreaView style={{
             flex: 1,
@@ -29,11 +26,12 @@ const PortfolioScreen = (props: any) => {
         }}>
             <View style={{ flex: 1 }}>
                 <FlatList
-                    data={dataList}
-                    style={{ paddingBottom: 10/* , paddingTop: 10 */ }}
+                    data={datal}
+                    style={{ paddingBottom: 10 }}
                     renderItem={(data) =>
+
                         <TouchableNativeFeedback onPress={() => {
-                            props.navigation.navigate(RoutesName.bloggerProfileScreen);
+                            props.navigation.navigate(RoutesName.bloggerProfileScreen, { "userData": data });
                         }}>
                             <View style={{
                                 height: 100,
@@ -49,10 +47,10 @@ const PortfolioScreen = (props: any) => {
                                 }} style={{ height: 100, width: 120, borderRadius: 18, }}></Image>
                                 <View style={{ flexDirection: 'column', /* backgroundColor: 'brown', */ justifyContent: 'center', paddingLeft: 10 }}>
                                     <Text style={{ fontSize: 18, color: 'black', fontWeight: "600" }}>
-                                        Yojit Sutradhar
+                                        {data.item.userName}
                                     </Text>
                                     <Text style={{ fontSize: 17, color: 'black' }}>
-                                        yojitsutradhar@gmail.com
+                                        {data.item.email}
                                     </Text>
                                 </View>
                             </View>
