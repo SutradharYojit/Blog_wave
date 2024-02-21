@@ -1,8 +1,6 @@
 import { UserModel } from "../../../model/user_model";
 import { SET_ALL_USERS, } from "../../action/action_const"
 
-
-
 const initialState: UserModel[] = [];
 
 const getUsers = (state = initialState, action: any) => {

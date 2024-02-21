@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../resources/style";
+import { useDispatch } from "react-redux";
+import { updateUser, updateUserProfile } from "../../redux/action/action";
 
-const EditProfileScreen = () => {
+const EditProfileScreen = (props: any) => {
+
+    const { userData } = props.route.params;
+
+    console.log(userData);
+    const dispatch = useDispatch();
+    let [name, setuserName] = useState('');
+    let [userEmail, setMail] = useState('');
+    let [userBio, setBio] = useState('');
+
+
+    useEffect(() => {
+        setuserName(userData.userName);
+        setMail(userData.email);
+        setBio(userData.bio);
+    }, [])
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={{ alignItems: 'center' }}>
@@ -15,36 +33,37 @@ const EditProfileScreen = () => {
                         uri: 'https://c4.wallpaperflare.com/wallpaper/384/350/430/digital-art-artwork-cyber-cyberpunk-neon-hd-wallpaper-preview.jpg',
                     }}>
                 </Image>
-
             </View>
             <View>
                 <TextInput
                     style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
                     onChangeText={(Text) => {
-                        // setEmail(Text)
+                        setuserName(Text)
                     }}
-                    // value={'asdasd}
+                    value={name}
                     placeholder='Username'>
                 </TextInput>
                 <TextInput
                     style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
                     onChangeText={(Text) => {
-                        // setEmail(Text)
+                        setMail(Text)
                     }}
-                    // value={'asdasd}
+                    value={userEmail}
                     placeholder='Email'>
                 </TextInput>
                 <TextInput
                     style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
                     onChangeText={(Text) => {
-                        // setEmail(Text)
+                        setBio(Text)
                     }}
-                    // value={'asdasd}
+                    value={userBio}
                     placeholder='Bio'>
                 </TextInput>
                 <View style={{ alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => {
-
+                        console.log("asdasdasdasdasd")
+                        dispatch(updateUser({ userName: name, email: userEmail, bio: userBio }));
+                        dispatch(updateUserProfile({ userName: name, email: userEmail, bio: userBio }));
                     }} style={{
                         height: 65,
                         width: 250,

@@ -5,13 +5,21 @@ import { RoutesName } from "../../resources/route_names";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUser } from "../../redux/action/action";
 import { UserModel } from "../../model/user_model";
+import { UserPreference } from "../../services/user_preference";
 
 
 const PortfolioScreen = (props: any) => {
+    const userPreference = new UserPreference();
+
     const dispatch = useDispatch();
+    const handleClick = async () => {
+        await userPreference.getUserInfo();
+        dispatch(getAllUser());
+
+    };
 
     useEffect(() => {
-        dispatch(getAllUser());
+        handleClick();
     }, [])
 
     const datal: UserModel[] = useSelector((state: any) => state.Users);

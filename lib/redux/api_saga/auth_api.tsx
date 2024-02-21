@@ -2,29 +2,7 @@ import { put } from "redux-saga/effects";
 import { SET_LOGIN_USER, SET_SIGNUP_USER } from "../action/action_const";
 import { RoutesName } from "../../resources/route_names";
 import { UserPreference } from "../../services/user_preference";
-
-// export function* LoginAPI(action: any): any {
-//     console.log("Enter fetch API");
-
-//     const uri = 'http://10.1.86.167:1234/Portfolio/getUserAll/3d3fb92e-472c-4719-87c5-dc114be7108d';
-//     try {
-//         let result: any = yield fetch(uri, {
-//             method: "GET",
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhaHVsQGdtYWlsLmNvbSIsImlhdCI6MTcwODA2NjYwMH0.qvfHtBV1w0LiA_3x0LQzK8htymAICXWALevwmKKozZs'
-//             },
-//         }).then(res => {
-//             return res.json()
-//         });
-//         console.log(result);
-//         yield put({ type: SET_LOGIN_USER, data: result, loading: true });
-//     }
-//     catch (error) {
-//         console.error("Failed to Login", error);
-//     }
-// }
-
+import { APIConstants } from "../../services/api_constants";
 
 export function* LoginAPI(action: any): any {
     const userPreference = new UserPreference();
@@ -34,7 +12,8 @@ export function* LoginAPI(action: any): any {
         "email": email,
         "password": pass
     }
-    const uri = 'http://10.1.86.167:1234/user/login';
+    const uri = `${APIConstants.baseUrl}user/login`;
+    
     try {
         let result: any = yield fetch(uri, {
             method: "POST",
@@ -63,7 +42,7 @@ export function* SignUpAPI(action: any): any {
         "email": email,
         "password": pass
     }
-    const uri = 'http://10.1.86.167:1234/user/signUp';
+    const uri = `${APIConstants.baseUrl}user/signUp`;
 
     try {
         let result: any = yield fetch(uri, {

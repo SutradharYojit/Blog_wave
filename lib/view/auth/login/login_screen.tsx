@@ -34,15 +34,35 @@ const LoginScreen = (props: any) => {
                 <Text style={styles.appTitle}>{StringManager.appTitle}</Text>
                 <Text style={[styles.text, { fontSize: 19, marginVertical: 10 }]}>{StringManager.loginTitle}</Text>
                 <TextInput
-                    style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
+
+                    placeholderTextColor="black"
+                    style={{
+                        marginTop: 10,
+                        borderColor: 'teal',
+                        borderWidth: 2.5,
+                        borderRadius: 10,
+                        fontSize: 18,
+                        paddingLeft: 10,
+                        color: 'black'
+                    }}
                     onChangeText={(Text) => {
+                        console.log(Text)
                         setMail(Text)
                     }}
                     // value={'asdasd}
                     placeholder='Email'>
                 </TextInput>
                 <TextInput
-                    style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
+                    placeholderTextColor="black"
+                    style={{
+                        marginTop: 10,
+                        borderColor: 'teal',
+                        borderWidth: 2.5,
+                        borderRadius: 10,
+                        fontSize: 18,
+                        color: 'black',
+                        paddingLeft: 10
+                    }}
                     onChangeText={(Text) => {
                         setPass(Text)
                     }}
