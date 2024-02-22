@@ -1,18 +1,19 @@
 import { put } from "redux-saga/effects";
 import { APIConstants } from "../../services/api_constants";
 import { UserPreference } from "../../services/user_preference";
-import { DELETE_BLOG_ITEM, SET_ALL_USERS, SET_BLOG, SET_BLOG_ITEM, UPDATE_BLOG_ITEM } from "../action/action_const";
+import { SET_PROJECT, SET_PROJECT_DELETE, UPDATE_PROJECT_ITEM } from "../action/action_const";
 import { ToastAndroid } from "react-native";
 
-export function* createBlog(action: any): any {
-    const { title, description } = action.payload;
+export function* createProject(action: any): any {
+    const { title, description, url } = action.payload;
     const body = {
         "title": title,
         "description": description,
+        "projectUrl": url,
         "userId": UserPreference.userId
     }
 
-    const uri = `${APIConstants.baseUrl}blog/createBlog`;
+    const uri = `${APIConstants.baseUrl}Project/createproject`;
     try {
         let result: any = yield fetch(uri, {
             method: "POST",
@@ -25,20 +26,20 @@ export function* createBlog(action: any): any {
             return res.json()
         });
         console.log(result);
-        yield put({ type: SET_BLOG_ITEM, data: result });
-        ToastAndroid.show('Blog Create Successfully', ToastAndroid.SHORT);
+        yield put({ type: SET_PROJECT, data: result });
+        ToastAndroid.show('Project Created Successfully', ToastAndroid.SHORT);
 
     }
     catch (error) {
-        console.error("Failed to Create Blog", error);
+        console.error("Failed to Create Project", error);
     }
 }
 
-export function* fetchBlogs(): any {
+export function* fetchProject(): any {
 
-    console.log("Enter fetch Blogs API");
+    console.log("Enter fetch project API");
 
-    const uri = `${APIConstants.baseUrl}blog/getBlogs`;
+    const uri = `${APIConstants.baseUrl}Project/userProjects/${UserPreference.userId}`;
     try {
         let result: any = yield fetch(uri, {
             method: "GET",
@@ -49,21 +50,21 @@ export function* fetchBlogs(): any {
         }).then(res => {
             return res.json()
         });
-        // console.log(result)
-        yield put({ type: SET_BLOG, data: result, loading: true });
+        console.log(result)
+        yield put({ type: SET_PROJECT, data: result, loading: true });
     }
     catch (error) {
-        console.error("Failed to get user", error);
+        console.error("Failed to get project", error);
     }
 }
 
-export function* removeBlog(action: any): any {
+export function* removeProject(action: any): any {
 
-    const { blogId } = action.payload;
+    const { projectId } = action.payload;
 
     console.log("Enter fetch project API");
 
-    const uri = `${APIConstants.baseUrl}blog/deleteBlog/${blogId}`;
+    const uri = `${APIConstants.baseUrl}Project/deleteProject/${projectId}`;
     try {
         let result: any = yield fetch(uri, {
             method: "DELETE",
@@ -75,23 +76,25 @@ export function* removeBlog(action: any): any {
             return res.json()
         });
         console.log(result)
-        yield put({ type: DELETE_BLOG_ITEM, data: result, loading: true });
-        ToastAndroid.show('Blog deleted Successfully', ToastAndroid.SHORT);
+        yield put({ type: SET_PROJECT_DELETE, data: result, loading: true });
+        ToastAndroid.show('Project deleted Successfully', ToastAndroid.SHORT);
+
     }
     catch (error) {
         console.error("Failed to delete project", error);
     }
 }
 
-export function* updateBlogInfo(action: any): any {
-    const { title, description, id } = action.payload;
+export function* updateProjectInfo(action: any): any {
+    const { title, description, url, id } = action.payload;
     const body = {
         "title": title,
         "description": description,
+        "projectUrl": url,
         "id": id
     }
 
-    const uri = `${APIConstants.baseUrl}blog/updateBlog`;
+    const uri = `${APIConstants.baseUrl}Project/updateProject`;
     try {
         let result: any = yield fetch(uri, {
             method: "POST",
@@ -104,10 +107,12 @@ export function* updateBlogInfo(action: any): any {
             return res.json()
         });
         console.log(result);
-        yield put({ type: UPDATE_BLOG_ITEM, data: result });
-        ToastAndroid.show('Blog Updated Successfully', ToastAndroid.SHORT);
+        yield put({ type: UPDATE_PROJECT_ITEM, data: result });
+        ToastAndroid.show('Project Updated Successfully', ToastAndroid.SHORT);
     }
     catch (error) {
-        console.error("Failed to Blog Project", error);
+        console.error("Failed to Update Project", error);
     }
 }
+
+

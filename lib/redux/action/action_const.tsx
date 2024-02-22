@@ -28,3 +28,25 @@ export const SET_USER_DATA = "SET_USER_DATA";
 //Blog listing screen
 export const GET_BLOG = "GET_BLOG";
 export const SET_BLOG = "SET_BLOG";
+
+//Add & Update project Screen
+export const CREATE_PROJECT = "CREATE_PROJECT";
+export const SET_PROJECT_ITEM = "SET_PROJECT_ITEM";
+
+export const UPDATE_PROJECT = "UPDATE_PROJECT";
+export const UPDATE_PROJECT_ITEM = "UPDATE_PROJECT_ITEM";
+
+// Projects Screen & blogger profile Screen
+export const GET_PROJECTS = "GET_PROJECTS";
+export const SET_PROJECT = "SET_PROJECT";
+
+//Project details Screen
+export const DELETE_PROJECTS = "DELETE_PROJECTS";
+export const SET_PROJECT_DELETE = "SET_PROJECT_DELETE";
+
+// Blog Details Screen
+
+export const UPDATE_BLOG = "UPDATE_BLOG";
+export const UPDATE_BLOG_ITEM = "UPDATE_BLOG_ITEM";
+export const DELETE_BLOG = "DELETE_BLOG";
+export const DELETE_BLOG_ITEM = "DELETE_BLOG_ITEM";

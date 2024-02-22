@@ -1,15 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../resources/style";
 import { useDispatch } from "react-redux";
-import { addBlog, fetchBlogInfo } from "../../redux/action/action";
+import { addBlog, fetchBlogInfo, updateBlog } from "../../redux/action/action";
 
-const AddBlogScreen = () => {
+const AddBlogScreen = (props: any) => {
     const dispatch = useDispatch();
+
+    const { userData } = props.route.params;
+    console.log(userData.updateblogs)
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+
+    useEffect(() => {
+        if (userData.updateblogs) {
+            setTitle(userData.blogData.title);
+            setDescription(userData.blogData.description);
+        }
+    }, [])
 
     return (
         <SafeAreaView style={styles.container}>
@@ -28,7 +38,7 @@ const AddBlogScreen = () => {
                     onChangeText={(Text) => {
                         setTitle(Text)
                     }}
-                    // value={'asdasd}
+                    value={title}
                     placeholder='Title'>
                 </TextInput>
                 <TextInput
@@ -45,14 +55,24 @@ const AddBlogScreen = () => {
                     onChangeText={(Text) => {
                         setDescription(Text)
                     }}
-                    // value={'asdasd}
+                    value={description}
                     placeholder='Description'>
                 </TextInput>
                 <View style={{ alignItems: 'center' }}>
                     <TouchableOpacity
                         onPress={() => {
-                            dispatch(addBlog({ title: title, description: description }));
-                            dispatch(fetchBlogInfo());
+                            if (userData.updateblogs) {
+                                dispatch(updateBlog({ title: title, description: description }));
+
+                                dispatch(fetchBlogInfo());
+                                props.navigation.goBack();
+                            }
+                            else {
+                                dispatch(addBlog({ title: title, description: description }));
+                                dispatch(fetchBlogInfo());
+                                props.navigation.goBack();
+                            }
+
                         }}
                         style={{
                             height: 65,
@@ -63,7 +83,9 @@ const AddBlogScreen = () => {
                             justifyContent: 'center',
                             borderRadius: 15,
                         }}>
-                        <Text style={{ color: 'white', fontSize: 19 }} >Add Blog</Text>
+                        {
+                            userData.updateblogs == true ? <Text style={{ color: 'white', fontSize: 19 }} >Update Blog</Text> : <Text style={{ color: 'white', fontSize: 19 }} >Add Blog</Text>
+                        }
                     </TouchableOpacity>
                 </View>
             </View>

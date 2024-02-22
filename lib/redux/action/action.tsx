@@ -1,8 +1,12 @@
 import {
     CREATE_BLOG,
+    CREATE_PROJECT,
+    DELETE_BLOG,
+    DELETE_PROJECTS,
     GET_ALL_USERS,
     GET_BLOG,
     GET_LOGIN_USER,
+    GET_PROJECTS,
     GET_SIGNUP_USER,
     GET_USER,
     RESET,
@@ -10,9 +14,12 @@ import {
     SET_BLOG,
     SET_BLOG_ITEM,
     SET_LOGIN_USER,
+    SET_PROJECT_ITEM,
     SET_SIGNUP_USER,
     SET_USER,
     SET_USER_DATA,
+    UPDATE_BLOG,
+    UPDATE_PROJECT,
     UPDATE_USER,
     UPDATE_USERPROFILE
 } from "./action_const"
@@ -92,4 +99,36 @@ export const fetchBlogInfo = () => ({
 
 export const setBlog = () => ({
     type: SET_BLOG
+})
+//Add & Update project Screen
+export const addProject = (params: any) => ({
+    type: CREATE_PROJECT,
+    payload: params,
+})
+
+export const updateProject = (params: any) => ({
+    type: UPDATE_PROJECT,
+    payload: params,
+})
+
+// Projects Screen & blogger profile Screen
+export const featchProjectInfo = () => ({
+    type: GET_PROJECTS,
+})
+
+// project details screen
+export const deleteProject = (params: any) => ({
+    type: DELETE_PROJECTS,
+    payload: params,
+})
+
+//Blog details screen
+export const updateBlog = (params: any) => ({
+    type: UPDATE_BLOG,
+    payload: params,
+})
+
+export const deleteBLog = (params: any) => ({
+    type: DELETE_BLOG,
+    payload: params,
 })

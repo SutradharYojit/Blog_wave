@@ -12,5 +12,6 @@ export class RoutesName {
     static ProjectListingScreen = "ProjectListingScreen";
     static addBlogScreen = "AddBlogScreen";
     static blogDetailsScreen = "BlogDetailsScreen";
-
+    static projectDetailScreen = "ProjectDetailScreen";
+    static addProjectScreen = "AddProjectScreen";
 }

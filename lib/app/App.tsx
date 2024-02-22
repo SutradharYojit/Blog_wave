@@ -15,6 +15,8 @@ import AddBlogScreen from '../view/add_blog/add_blog_screen';
 import BlogDetailsScreen from '../view/blog_details/blog_details_screen';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
+import ProjectDetailScreen from '../view/project/project_details_screen';
+import AddProjectScreen from '../view/project/add_project_screen';
 
 function App(): React.JSX.Element {
 
@@ -73,9 +75,22 @@ function App(): React.JSX.Element {
             <ScreenStack.Screen name={RoutesName.blogDetailsScreen}
               component={BlogDetailsScreen}
               options={{
-                title: "Blog",
+                headerShown: false
               }} >
             </ScreenStack.Screen>
+            <ScreenStack.Screen name={RoutesName.projectDetailScreen}
+              component={ProjectDetailScreen}
+              options={{
+                headerShown: false
+              }} >
+            </ScreenStack.Screen>
+            <ScreenStack.Screen name={RoutesName.addProjectScreen}
+              component={AddProjectScreen}
+              options={{
+                headerShown: false
+              }} >
+            </ScreenStack.Screen>
+
           </ScreenStack.Navigator>
         }
       </NavigationContainer>

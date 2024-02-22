@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../resources/style";
 import { Appbar } from 'react-native-paper';
 import { UserModel } from "../../model/user_model";
+import { RoutesName } from "../../resources/route_names";
 
 const BloggerProfileScreen = (props: any) => {
 
@@ -76,20 +77,27 @@ const BloggerProfileScreen = (props: any) => {
 
                 <FlatList data={dataList}
                     renderItem={(data) =>
-                        <View style={{ backgroundColor: 'rgba(241, 242, 245, 1)', borderRadius: 15, padding: 10, marginTop: 10 }}>
-                            <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
-                                <Image style={{ width: 23, height: 23, marginLeft: 10 }} source={require('../../../assets/icons/tag.png')} />
-                                <Text numberOfLines={1} style={{ fontSize: 18, color: 'black', flex: 1, }}>  : asdasdasdas</Text>
+                        <TouchableNativeFeedback
+                            onPress={() => {
+                                props.navigation.navigate(RoutesName.projectDetailScreen, { "projectData": data.item, "projectsListing": false });
+
+                            }}>
+                            <View style={{ backgroundColor: 'rgba(241, 242, 245, 1)', borderRadius: 15, padding: 10, marginTop: 10 }}>
+                                <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
+                                    <Image style={{ width: 23, height: 23, marginLeft: 10 }} source={require('../../../assets/icons/tag.png')} />
+                                    <Text numberOfLines={1} style={{ fontSize: 18, color: 'black', flex: 1, }}>  : asdasdasdas</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', }}>
+                                    <Image style={{ width: 23, height: 23, marginLeft: 10 }} source={require('../../../assets/icons/url.png')} />
+                                    <TouchableNativeFeedback onPress={() => {
+                                        // console.log("asdas" + )
+                                    }}>
+                                        <Text numberOfLines={1} style={{ fontSize: 18, color: 'blue', flex: 1, textDecorationLine: 'underline' }}>  : https://copyprogramming.com/howto/is-there-a-way-to-set-a-font-globally-in-react-native</Text>
+                                    </TouchableNativeFeedback>
+                                </View>
                             </View>
-                            <View style={{ flexDirection: 'row', }}>
-                                <Image style={{ width: 23, height: 23, marginLeft: 10 }} source={require('../../../assets/icons/url.png')} />
-                                <TouchableNativeFeedback onPress={() => {
-                                    // console.log("asdas" + )
-                                }}>
-                                    <Text numberOfLines={1} style={{ fontSize: 18, color: 'blue', flex: 1, textDecorationLine: 'underline' }}>  : https://copyprogramming.com/howto/is-there-a-way-to-set-a-font-globally-in-react-native</Text>
-                                </TouchableNativeFeedback>
-                            </View>
-                        </View>} >
+                        </TouchableNativeFeedback>
+                    } >
 
                 </FlatList>
 

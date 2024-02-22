@@ -37,14 +37,20 @@ const UserProfileScreen = (props: any) => {
             icon: "library-books",
             path: RoutesName.ProjectListingScreen,
             label: "Projects",
-            data: '/'
+            data: {
+                "projectData": null,
+                "updateProjects": false
+            }
         },
         {
             id: 3,
             icon: "add-task",
             path: RoutesName.addBlogScreen,
             label: "Add Blog",
-            data: '/'
+            data: {
+                "blogData": "",
+                "updateblogs": false
+            }
         },
     ];
 

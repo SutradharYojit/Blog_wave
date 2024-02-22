@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { FlatList, Image, Text, TouchableNativeFeedback, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, Modal, StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../resources/style";
 import { RoutesName } from "../../resources/route_names";
@@ -9,6 +9,8 @@ import { BlogModel } from "../../model/blog_model";
 import { Utils } from "../../services/util";
 
 const BlogListingScreen = (props: any) => {
+
+
 
     const dispatch = useDispatch();
     useEffect(() => {
