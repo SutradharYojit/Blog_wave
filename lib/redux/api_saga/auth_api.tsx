@@ -13,7 +13,7 @@ export function* LoginAPI(action: any): any {
         "password": pass
     }
     const uri = `${APIConstants.baseUrl}user/login`;
-    
+
     try {
         let result: any = yield fetch(uri, {
             method: "POST",
@@ -25,7 +25,7 @@ export function* LoginAPI(action: any): any {
             return res.json()
         });
         console.log(result);
-        yield put({ type: SET_LOGIN_USER, data: result, loading: true });
+        yield put({ type: SET_LOGIN_USER, data: result, loading: false });
         yield userPreference.saveLoginUserInfo(result.token, result.userId);
         navigation.replace(RoutesName.dashboardScreen);
     }

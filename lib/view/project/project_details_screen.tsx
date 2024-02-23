@@ -10,6 +10,7 @@ import {
     Dialog,
 } from '@rneui/themed';
 import { RoutesName } from "../../resources/route_names";
+import { UserPreference } from "../../services/user_preference";
 
 const ProjectDetailScreen = (props: any) => {
     const toggleDialog3 = () => {
@@ -38,7 +39,6 @@ const ProjectDetailScreen = (props: any) => {
             }}>
                 <View style={{ flexDirection: 'row', }}>
                     <TouchableOpacity onPress={() => {
-                        console.log("asdasd");
                         props.navigation.goBack();
                     }}>
                         <Icons name="arrow-left" size={25} color="black"></Icons>
@@ -61,13 +61,11 @@ const ProjectDetailScreen = (props: any) => {
                         justifyContent: 'space-between'
                     }}>
                         <TouchableOpacity onPress={() => {
-                            console.log("asdasd")
                             props.navigation.navigate(RoutesName.addProjectScreen, {
                                 "userData": {
                                     "projectData": projectDetail,
                                     "updateProjects": true
                                 },
-
                             });
 
                         }}>
@@ -75,7 +73,7 @@ const ProjectDetailScreen = (props: any) => {
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
                             dispatch(deleteProject({ projectId: projectDetail.id }));
-                            dispatch(featchProjectInfo())
+                            dispatch(featchProjectInfo({ userId: UserPreference.userId }))
                             props.navigation.goBack();
                         }}>
                             <Icons name="delete" size={28} color="black"></Icons>

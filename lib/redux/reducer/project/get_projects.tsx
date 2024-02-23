@@ -14,7 +14,7 @@ const getProjects = (state = initialState, action: any) => {
     switch (action.type) {
         case SET_PROJECT:
             return {
-                ...state,
+                // ...state,
                 project: action.data,
                 loading: action.loading
             };

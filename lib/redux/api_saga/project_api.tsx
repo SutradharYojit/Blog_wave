@@ -35,11 +35,13 @@ export function* createProject(action: any): any {
     }
 }
 
-export function* fetchProject(): any {
+export function* fetchProject(action: any): any {
 
     console.log("Enter fetch project API");
+    const { userId } = action.payload;
 
-    const uri = `${APIConstants.baseUrl}Project/userProjects/${UserPreference.userId}`;
+
+    const uri = `${APIConstants.baseUrl}Project/userProjects/${userId}`;
     try {
         let result: any = yield fetch(uri, {
             method: "GET",

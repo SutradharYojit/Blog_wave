@@ -1,5 +1,6 @@
 import { takeEvery } from "redux-saga/effects";
 import {
+    CONTACT_BLOGGER,
     CREATE_BLOG,
     CREATE_PROJECT,
     DELETE_BLOG,
@@ -18,6 +19,7 @@ import { LoginAPI, SignUpAPI } from "./auth_api";
 import { editUser, fetchAllUsers, fetchUser, } from "./users_api";
 import { createBlog, fetchBlogs, removeBlog, updateBlogInfo } from "./blog_api";
 import { createProject, fetchProject, removeProject, updateProjectInfo } from "./project_api";
+import { sentMail } from "./sent_mail";
 
 function* sagaData(): any {
     yield takeEvery(GET_LOGIN_USER, LoginAPI);
@@ -33,6 +35,7 @@ function* sagaData(): any {
     yield takeEvery(UPDATE_PROJECT, updateProjectInfo);
     yield takeEvery(UPDATE_BLOG, updateBlogInfo);
     yield takeEvery(DELETE_BLOG, removeBlog);
+    yield takeEvery(CONTACT_BLOGGER, sentMail);
 }
 
 export default sagaData;

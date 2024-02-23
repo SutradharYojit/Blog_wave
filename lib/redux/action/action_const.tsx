@@ -45,8 +45,11 @@ export const DELETE_PROJECTS = "DELETE_PROJECTS";
 export const SET_PROJECT_DELETE = "SET_PROJECT_DELETE";
 
 // Blog Details Screen
-
 export const UPDATE_BLOG = "UPDATE_BLOG";
 export const UPDATE_BLOG_ITEM = "UPDATE_BLOG_ITEM";
 export const DELETE_BLOG = "DELETE_BLOG";
 export const DELETE_BLOG_ITEM = "DELETE_BLOG_ITEM";
+
+//Blogger Contact Screen
+export const CONTACT_BLOGGER = "CONTACT_BLOGGER";
+export const SET_CONTACT_BLOGGER = "SET_CONTACT_BLOGGER";

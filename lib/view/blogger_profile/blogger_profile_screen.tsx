@@ -1,16 +1,28 @@
-import React from "react";
-import { FlatList, Image, Text, TouchableNativeFeedback, View } from "react-native";
+import React, { useDebugValue, useEffect } from "react";
+import { FlatList, Image, Text, TouchableNativeFeedback, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { styles } from "../../resources/style";
-import { Appbar } from 'react-native-paper';
 import { UserModel } from "../../model/user_model";
 import { RoutesName } from "../../resources/route_names";
+import { useDispatch, useSelector } from "react-redux";
+import { featchProjectInfo } from "../../redux/action/action";
+import { ProjectModel } from "../../model/project_model";
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { UserPreference } from "../../services/user_preference";
+
 
 const BloggerProfileScreen = (props: any) => {
+    const dispatch = useDispatch();
 
     const { userData } = props.route.params;
     console.log(userData.item);
     const userInfo: UserModel = userData.item
+
+
+    useEffect(() => {
+        dispatch(featchProjectInfo({ userId: userInfo.id }))
+    }, [])
+    const projects: ProjectModel[] = useSelector((state: any) => state.projectList.project);
+    const loading = useSelector((state: any) => state.projectList.loading);
 
     let dataList = [
         { id: 1, name: "Yojit", surname: "Suthar" },
@@ -27,18 +39,61 @@ const BloggerProfileScreen = (props: any) => {
         { id: 12, name: "D", surname: "" },
     ];
     return (
-        <SafeAreaView style={styles.container}>
-            {/*          <Appbar.Header>
-                <Appbar.BackAction onPress={() => { }} />
-                <Appbar.Content title="Title" />
-                <Appbar.Action icon="calendar" onPress={() => { }} />
-                <Appbar.Action icon="magnify" onPress={() => { }} />
-            </Appbar.Header> */}
+        <SafeAreaView style={{
+            flex: 1,
+            backgroundColor: 'white',
+        }}>
+            <View style={{
+                paddingHorizontal: 15,
+                height: 55,
+                flexDirection: 'row',
+                backgroundColor: "white",
+                justifyContent: 'space-between',
+                alignItems: 'center'
+            }}>
+                <View style={{ flexDirection: 'row', }}>
+                    <TouchableOpacity onPress={() => {
+                        props.navigation.goBack();
+                    }}>
+                        <Icons name="arrow-left" size={25} color="black"></Icons>
+                    </TouchableOpacity>
+                    <Text
+                        style={{
+                            textAlignVertical: "center",
+                            color: 'black',
+                            fontSize: 20,
+                            fontWeight: '500',
+                            paddingLeft: 20
+                        }}>
+                        Profile
+                    </Text>
+                </View>
+
+                <View style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between'
+                }}>
+                    <TouchableOpacity onPress={() => {
+                        props.navigation.navigate(RoutesName.bloggerContactScreen, { "email": userInfo.email, "userName": userInfo.userName })
+                    }}>
+                        <Text style={{
+                            color: 'teal',
+                            fontSize: 19,
+                            fontWeight: '400'
+                        }}>Contact</Text>
+                    </TouchableOpacity>
+
+                </View>
+
+
+
+            </View>
+
+
             <View style={{
                 flex: 1,
-                // backgroundColor: 'grey'
-                // backgroundColor: 'white',
-                // padding: 15
+                backgroundColor: 'white',
+                padding: 15
             }}>
                 <View style={{ flexDirection: 'row', }}>
                     <View style={{ height: 90, width: 90, backgroundColor: 'brown', borderRadius: 50 }}>
@@ -75,25 +130,45 @@ const BloggerProfileScreen = (props: any) => {
                     Projects
                 </Text>
 
-                <FlatList data={dataList}
+                <FlatList data={projects}
                     renderItem={(data) =>
                         <TouchableNativeFeedback
                             onPress={() => {
                                 props.navigation.navigate(RoutesName.projectDetailScreen, { "projectData": data.item, "projectsListing": false });
 
                             }}>
-                            <View style={{ backgroundColor: 'rgba(241, 242, 245, 1)', borderRadius: 15, padding: 10, marginTop: 10 }}>
+                            <View style={{
+                                backgroundColor: 'rgba(241, 242, 245, 1)',
+                                borderRadius: 15,
+                                padding: 10,
+                                marginTop: 10
+                            }}>
                                 <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
-                                    <Image style={{ width: 23, height: 23, marginLeft: 10 }} source={require('../../../assets/icons/tag.png')} />
-                                    <Text numberOfLines={1} style={{ fontSize: 18, color: 'black', flex: 1, }}>  : asdasdasdas</Text>
+                                    <Image style={{
+                                        width: 23,
+                                        height: 23,
+                                        marginLeft: 10
+                                    }} source={require('../../../assets/icons/tag.png')} />
+                                    <Text numberOfLines={1} style={{
+                                        fontSize: 18,
+                                        color: 'black',
+                                        flex: 1,
+                                    }}>  {data.item.title}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', }}>
-                                    <Image style={{ width: 23, height: 23, marginLeft: 10 }} source={require('../../../assets/icons/url.png')} />
-                                    <TouchableNativeFeedback onPress={() => {
-                                        // console.log("asdas" + )
-                                    }}>
-                                        <Text numberOfLines={1} style={{ fontSize: 18, color: 'blue', flex: 1, textDecorationLine: 'underline' }}>  : https://copyprogramming.com/howto/is-there-a-way-to-set-a-font-globally-in-react-native</Text>
-                                    </TouchableNativeFeedback>
+                                    <Image style={{
+                                        width: 23,
+                                        height: 23,
+                                        marginLeft:
+                                            10
+                                    }} source={require('../../../assets/icons/url.png')} />
+                                    <Text numberOfLines={1} style={{
+                                        fontSize: 18,
+                                        color: 'blue',
+                                        flex: 1,
+                                        textDecorationLine: 'underline'
+                                    }}>   {data.item.projectUrl}</Text>
+
                                 </View>
                             </View>
                         </TouchableNativeFeedback>

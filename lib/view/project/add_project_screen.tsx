@@ -5,6 +5,7 @@ import { styles } from "../../resources/style";
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useDispatch } from "react-redux";
 import { addProject, featchProjectInfo, updateProject } from "../../redux/action/action";
+import { UserPreference } from "../../services/user_preference";
 
 const AddProjectScreen = (props: any) => {
 
@@ -14,7 +15,6 @@ const AddProjectScreen = (props: any) => {
     let [url, setUrl] = useState('');
     // const { projectData, updateProjects } = props.route.params;
     const { userData } = props.route.params;
-
 
     useEffect(() => {
         if (userData.updateProjects) {
@@ -115,16 +115,14 @@ const AddProjectScreen = (props: any) => {
                     <TouchableOpacity onPress={() => {
                         if (userData.updateProjects) {
                             dispatch(updateProject({ title: title, description: description, url: url, id: userData.projectData.id }));
-                            dispatch(featchProjectInfo())
+                            dispatch(featchProjectInfo({ userId: UserPreference.userId }))
                             props.navigation.goBack();
                         }
                         else {
                             dispatch(addProject({ title: title, description: description, url: url }));
-                            dispatch(featchProjectInfo())
-                            props.navigation.goBack();
+                            // onPositiveClickListener();
+                            // props.navigation.goBack();
                         }
-
-
                     }} style={{
                         height: 65,
                         width: 250,

@@ -62,10 +62,10 @@ const AddBlogScreen = (props: any) => {
                     <TouchableOpacity
                         onPress={() => {
                             if (userData.updateblogs) {
-                                dispatch(updateBlog({ title: title, description: description }));
+                                dispatch(updateBlog({ title: title, description: description, id: userData.blogData.id }));
 
                                 dispatch(fetchBlogInfo());
-                                props.navigation.goBack();
+                                props.navigation.popToTop();
                             }
                             else {
                                 dispatch(addBlog({ title: title, description: description }));

@@ -7,16 +7,17 @@ import { FAB } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import { featchProjectInfo } from "../../redux/action/action";
 import { ProjectModel } from "../../model/project_model";
+import { UserPreference } from "../../services/user_preference";
 
 const ProjectListingScreen = (props: any) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(featchProjectInfo())
+        dispatch(featchProjectInfo({ userId: UserPreference.userId }))
     }, [])
 
     const projects: ProjectModel[] = useSelector((state: any) => state.projectList.project);
-    const loading = useSelector((state: any) => state.blogList.loading);
+    const loading = useSelector((state: any) => state.projectList.loading);
 
     let dataList = [
         { id: 1, name: "Yojit", surname: "Suthar" },

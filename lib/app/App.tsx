@@ -43,12 +43,7 @@ function App(): React.JSX.Element {
             <ScreenStack.Screen name={RoutesName.bloggerProfileScreen}
               component={BloggerProfileScreen}
               options={{
-                title: "Profile",
-                headerRight: () => <Text style={{
-                  color: 'teal',
-                  fontSize: 19,
-                  fontWeight: '400'
-                }}>Contact</Text>
+                headerShown: false
               }}
             ></ScreenStack.Screen>
             <ScreenStack.Screen name={RoutesName.bloggerContactScreen}

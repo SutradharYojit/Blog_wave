@@ -7,6 +7,7 @@ import { RoutesName } from "../../resources/route_names";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/action/action";
 import { UserModel } from "../../model/user_model";
+import { UserPreference } from "../../services/user_preference";
 
 const UserProfileScreen = (props: any) => {
 
@@ -15,6 +16,8 @@ const UserProfileScreen = (props: any) => {
     useEffect(() => {
         dispatch(getUserInfo());
     }, [])
+    const userPreference = new UserPreference();
+
 
     // const currentUser11: UserModel = useSelector((state: any) => console.log(state.User));
     const loading: boolean = useSelector((state: any) => state.User.loading);
@@ -58,6 +61,12 @@ const UserProfileScreen = (props: any) => {
 
     const handleLogout = () => {
         console.log("Logging out...");
+        userPreference.logout();
+        props.navigation.reset({
+            index: 0,
+            routes: [{ name: RoutesName.loginScreen }],
+        });
+
         setLogoutDialogVisible(false);
     };
     return (
@@ -138,7 +147,7 @@ const UserProfileScreen = (props: any) => {
                             <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
                                 <Text style={{ fontSize: 20, marginBottom: 20 }}>Are you sure you want to logout?</Text>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Button title="Cancel" onPress={() => setLogoutDialogVisible(false)} />
+                                    <Button title="Cancel" onPress={() => { setLogoutDialogVisible(false) }} />
                                     <Button title="Logout" onPress={handleLogout} />
                                 </View>
                             </View>

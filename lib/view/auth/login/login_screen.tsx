@@ -17,9 +17,7 @@ import {
 
 const LoginScreen = (props: any) => {
     const dispatch = useDispatch();
-    const toggleDialog3 = () => {
-        setVisible3(!visible3);
-    };
+
     let [userEmail, setMail] = useState('');
     let [userPass, setPass] = useState('');
     const [visible3, setVisible3] = useState(false);
@@ -72,7 +70,10 @@ const LoginScreen = (props: any) => {
                 <View style={{ alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => {
                         console.log("asdasd")
+                        setVisible3(true);
                         dispatch(getUserData(props.navigation, { email: userEmail, pass: userPass }));
+                        setVisible3(loading);
+
                     }} style={{
                         height: 65,
                         width: 250,
@@ -99,13 +100,12 @@ const LoginScreen = (props: any) => {
                         }}>SignUp</Text>
                     </TouchableOpacity>
                 </View>
-                <Dialog isVisible={loading} onBackdropPress={toggleDialog3}>
+                <Dialog isVisible={visible3}  >
                     <Dialog.Loading />
                 </Dialog>
             </View>
         </SafeAreaView>
     );
 }
-
 
 export default LoginScreen;

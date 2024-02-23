@@ -12,10 +12,11 @@ const SplashScreen = (props: any) => {
 
     const handleClick = async () => {
         await userPreference.getUserInfo();
-        console.log(UserPreference.loggedIn);
-        console.log(Boolean(UserPreference.loggedIn));
 
-        if (Boolean(UserPreference.loggedIn) == true) {
+        console.log("after" + UserPreference.loggedIn);
+        console.log("beafpper" + Boolean(UserPreference.loggedIn));
+
+        if (UserPreference.loggedIn == 'true') {
             setTimeout(() => {
                 props.navigation.replace(RoutesName.dashboardScreen);
             }, 2000

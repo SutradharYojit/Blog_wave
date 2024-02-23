@@ -1,4 +1,5 @@
 import {
+    CONTACT_BLOGGER,
     CREATE_BLOG,
     CREATE_PROJECT,
     DELETE_BLOG,
@@ -112,8 +113,10 @@ export const updateProject = (params: any) => ({
 })
 
 // Projects Screen & blogger profile Screen
-export const featchProjectInfo = () => ({
+export const featchProjectInfo = (params: any) => ({
     type: GET_PROJECTS,
+    payload: params,
+
 })
 
 // project details screen
@@ -130,5 +133,11 @@ export const updateBlog = (params: any) => ({
 
 export const deleteBLog = (params: any) => ({
     type: DELETE_BLOG,
+    payload: params,
+})
+
+// Blogger Contact screen
+export const contactBlogger = (params: any) => ({
+    type: CONTACT_BLOGGER,
     payload: params,
 })
