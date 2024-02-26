@@ -11,7 +11,7 @@ const contactUser = (state = initialState, action: any) => {
             return {
                 ...state,
                 message: action.data.message,
-                loading: false,
+                loading: true,
             }
 
         default:

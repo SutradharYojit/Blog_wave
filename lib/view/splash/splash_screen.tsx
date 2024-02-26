@@ -13,8 +13,8 @@ const SplashScreen = (props: any) => {
     const handleClick = async () => {
         await userPreference.getUserInfo();
 
-        console.log("after" + UserPreference.loggedIn);
-        console.log("beafpper" + Boolean(UserPreference.loggedIn));
+        console.log("after " + UserPreference.loggedIn);
+        console.log("before " + Boolean(UserPreference.loggedIn));
 
         if (UserPreference.loggedIn == 'true') {
             setTimeout(() => {

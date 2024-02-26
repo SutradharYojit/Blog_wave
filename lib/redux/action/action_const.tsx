@@ -53,3 +53,6 @@ export const DELETE_BLOG_ITEM = "DELETE_BLOG_ITEM";
 //Blogger Contact Screen
 export const CONTACT_BLOGGER = "CONTACT_BLOGGER";
 export const SET_CONTACT_BLOGGER = "SET_CONTACT_BLOGGER";
+
+export const SHOW_LOADING = 'SHOW_LOADING';
+export const HIDE_LOADING = 'HIDE_LOADING';

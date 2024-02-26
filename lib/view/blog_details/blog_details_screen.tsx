@@ -34,7 +34,7 @@ const BlogDetailsScreen = (props: any) => {
             }}>
                 <View style={{ flexDirection: 'row', }}>
                     <TouchableOpacity onPress={() => {
-                        console.log("asdasd");
+                        // console.log("asdasd");
                         props.navigation.goBack();
                     }}>
                         <Icons name="arrow-left" size={25} color="black"></Icons>
@@ -57,7 +57,7 @@ const BlogDetailsScreen = (props: any) => {
                         justifyContent: 'space-between'
                     }}>
                         <TouchableOpacity onPress={() => {
-                            console.log("asdasd")
+                            // console.log("asdasd")
                             props.navigation.navigate(RoutesName.addBlogScreen, {
                                 "userData": {
                                     "blogData": blogDetail,

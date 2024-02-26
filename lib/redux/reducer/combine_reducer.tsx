@@ -10,6 +10,7 @@ import getProjects from "./project/get_projects";
 import deleteProject from "./project/delete_pro";
 import updateProject from "./project/update_project";
 import contactUser from "./user/sent_mail";
+import loadingReducer from "./user/loading_red";
 
 
 const allReducers = combineReducers({
@@ -24,5 +25,6 @@ const allReducers = combineReducers({
     deleteProject: deleteProject,
     updateProject: updateProject,
     contactUser: contactUser,
+    loading: loadingReducer,
 });
 export default allReducers;

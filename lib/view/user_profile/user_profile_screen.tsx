@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/action/action";
 import { UserModel } from "../../model/user_model";
 import { UserPreference } from "../../services/user_preference";
+import Loading from "../../components/loading";
 
 const UserProfileScreen = (props: any) => {
 
@@ -72,95 +73,91 @@ const UserProfileScreen = (props: any) => {
     return (
         <SafeAreaView style={styles.container}>
             {
-                loading == true ? <View style={{ flex: 1 }}>
-                    <View style={{ flexDirection: 'row', }}>
-                        <View style={{ height: 90, width: 90, backgroundColor: 'brown', borderRadius: 50 }}>
-                            <Image
-                                width={90}
-                                height={90}
-                                borderRadius={50}
-                                source={{
-                                    uri: 'https://c4.wallpaperflare.com/wallpaper/384/350/430/digital-art-artwork-cyber-cyberpunk-neon-hd-wallpaper-preview.jpg',
-                                }}>
-                            </Image>
-                        </View>
-                        <View style={{ paddingLeft: 10, paddingTop: 8 }}>
-                            <Text style={{ fontSize: 18, fontWeight: '700', color: 'black' }}>
-                                {currentUser.userName}
-                            </Text>
-                            <Text style={{ fontSize: 18, fontWeight: '700', paddingTop: 5, color: 'grey' }}>
-                                {currentUser.email}
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={{ paddingVertical: 15 }}>
-                        <Text style={{ fontSize: 20, color: 'black', fontWeight: '700' }}>
-                            Bio
-                        </Text>
-                        <Text style={{ fontSize: 15, color: 'black' }}>
-                            {currentUser.bio}
-                        </Text>
-                    </View>
-                    <View>
-                        <FlatList
-                            data={dataList}
-                            renderItem={(data) => <TouchableOpacity onPress={() => {
-                                props.navigation.navigate(data.item.path, { "userData": data.item.data });
-                            }} >
-                                <View style={{ flexDirection: 'row', padding: 12, justifyContent: 'space-between' }}>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center' }} >
-                                        <Icons name={data.item.icon} size={30} color={'black'} ></Icons>
-                                        <Text style={{
-                                            fontSize: 18,
-                                            color: 'black',
-                                            paddingLeft: 10
-                                        }}>
-                                            {data.item.label}
-                                        </Text>
-                                    </View>
-                                    <Icons name="chevron-right" size={30} color={'black'} ></Icons>
-                                </View>
-                            </TouchableOpacity >
-                            }
-                        ></FlatList>
-                    </View>
-                    <TouchableOpacity onPress={() => setLogoutDialogVisible(true)}>
-                        <View style={{ flexDirection: 'row', padding: 12, justifyContent: 'space-between' }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }} >
-                                <Icons name="logout" size={30} color={'red'} ></Icons>
-                                <Text style={{
-                                    fontSize: 18,
-                                    color: 'red',
-                                    paddingLeft: 10
-                                }}>
-                                    Logout
+                loading == true ?
+                    <View style={{ flex: 1 }}>
+                        <View style={{ flexDirection: 'row', }}>
+                            <View style={{ height: 90, width: 90, backgroundColor: 'brown', borderRadius: 50 }}>
+                                <Image
+                                    width={90}
+                                    height={90}
+                                    borderRadius={50}
+                                    source={{
+                                        uri: 'https://c4.wallpaperflare.com/wallpaper/384/350/430/digital-art-artwork-cyber-cyberpunk-neon-hd-wallpaper-preview.jpg',
+                                    }}>
+                                </Image>
+                            </View>
+                            <View style={{ paddingLeft: 10, paddingTop: 8 }}>
+                                <Text style={{ fontSize: 18, fontWeight: '700', color: 'black' }}>
+                                    {currentUser.userName}
+                                </Text>
+                                <Text style={{ fontSize: 18, fontWeight: '700', paddingTop: 5, color: 'grey' }}>
+                                    {currentUser.email}
                                 </Text>
                             </View>
                         </View>
-                    </TouchableOpacity>
-                    <Modal
-                        visible={logoutDialogVisible}
-                        animationType="slide"
-                        transparent={true}
-                    >
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                            <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
-                                <Text style={{ fontSize: 20, marginBottom: 20 }}>Are you sure you want to logout?</Text>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Button title="Cancel" onPress={() => { setLogoutDialogVisible(false) }} />
-                                    <Button title="Logout" onPress={handleLogout} />
+                        <View style={{ paddingVertical: 15 }}>
+                            <Text style={{ fontSize: 20, color: 'black', fontWeight: '700' }}>
+                                Bio
+                            </Text>
+                            <Text style={{ fontSize: 15, color: 'black' }}>
+                                {currentUser.bio}
+                            </Text>
+                        </View>
+                        <View>
+                            <FlatList
+                                data={dataList}
+                                renderItem={(data) => <TouchableOpacity onPress={() => {
+                                    props.navigation.navigate(data.item.path, { "userData": data.item.data });
+                                }} >
+                                    <View style={{ flexDirection: 'row', padding: 12, justifyContent: 'space-between' }}>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }} >
+                                            <Icons name={data.item.icon} size={30} color={'black'} ></Icons>
+                                            <Text style={{
+                                                fontSize: 18,
+                                                color: 'black',
+                                                paddingLeft: 10
+                                            }}>
+                                                {data.item.label}
+                                            </Text>
+                                        </View>
+                                        <Icons name="chevron-right" size={30} color={'black'} ></Icons>
+                                    </View>
+                                </TouchableOpacity >
+                                }
+                            ></FlatList>
+                        </View>
+                        <TouchableOpacity onPress={() => setLogoutDialogVisible(true)}>
+                            <View style={{ flexDirection: 'row', padding: 12, justifyContent: 'space-between' }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }} >
+                                    <Icons name="logout" size={30} color={'red'} ></Icons>
+                                    <Text style={{
+                                        fontSize: 18,
+                                        color: 'red',
+                                        paddingLeft: 10
+                                    }}>
+                                        Logout
+                                    </Text>
                                 </View>
                             </View>
-                        </View>
-                    </Modal>
+                        </TouchableOpacity>
+                        <Modal
+                            visible={logoutDialogVisible}
+                            animationType="slide"
+                            transparent={true}
+                        >
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                                <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+                                    <Text style={{ fontSize: 20, marginBottom: 20 }}>Are you sure you want to logout?</Text>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                        <Button title="Cancel" onPress={() => { setLogoutDialogVisible(false) }} />
+                                        <Button title="Logout" onPress={handleLogout} />
+                                    </View>
+                                </View>
+                            </View>
+                        </Modal>
 
-                </View> : <View style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <ActivityIndicator size="large" color="black" />
-                </View>
+                    </View> :
+                    <Loading></Loading>
             }
         </SafeAreaView >
     );

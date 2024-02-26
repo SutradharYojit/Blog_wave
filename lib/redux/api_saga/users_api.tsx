@@ -17,7 +17,7 @@ export function* fetchAllUsers(): any {
         }).then(res => {
             return res.json()
         });
-        yield put({ type: SET_ALL_USERS, data: result });
+        yield put({ type: SET_ALL_USERS, data: result, loading: true });
     }
     catch (error) {
         console.error("Failed to get all user", error);
@@ -26,7 +26,7 @@ export function* fetchAllUsers(): any {
 
 export function* fetchUser(): any {
 
-    console.log("Enter fetch API");
+    // console.log("Enter fetch API");
 
     const uri = `${APIConstants.baseUrl}Portfolio/getUser/${UserPreference.userId}`;
     try {
@@ -39,7 +39,7 @@ export function* fetchUser(): any {
         }).then(res => {
             return res.json()
         });
-        console.log(result)
+        // console.log(result)
         yield put({ type: SET_USER, data: result, loading: true });
     }
     catch (error) {
@@ -48,10 +48,9 @@ export function* fetchUser(): any {
 }
 
 export function* editUser(action: any): any {
-
     const { userName, email, bio } = action.payload;
 
-    console.log("Enter Edit API");
+    // console.log("Enter Edit API");
     const body = {
         "id": UserPreference.userId,
         "userName": userName,

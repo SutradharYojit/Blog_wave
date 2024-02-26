@@ -9,7 +9,6 @@ const EditProfileScreen = (props: any) => {
 
     const { userData } = props.route.params;
 
-    console.log(userData);
     const dispatch = useDispatch();
     let [name, setuserName] = useState('');
     let [userEmail, setMail] = useState('');
@@ -61,7 +60,6 @@ const EditProfileScreen = (props: any) => {
                 </TextInput>
                 <View style={{ alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => {
-                        console.log("asdasdasdasdasd")
                         dispatch(updateUser({ userName: name, email: userEmail, bio: userBio }));
                         dispatch(updateUserProfile({ userName: name, email: userEmail, bio: userBio }));
                     }} style={{

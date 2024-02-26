@@ -10,6 +10,7 @@ import {
     GET_PROJECTS,
     GET_SIGNUP_USER,
     GET_USER,
+    HIDE_LOADING,
     RESET,
     SET_ALL_USERS,
     SET_BLOG,
@@ -19,6 +20,7 @@ import {
     SET_SIGNUP_USER,
     SET_USER,
     SET_USER_DATA,
+    SHOW_LOADING,
     UPDATE_BLOG,
     UPDATE_PROJECT,
     UPDATE_USER,
@@ -26,7 +28,7 @@ import {
 } from "./action_const"
 
 // Login & SignUp screen
-export const getUserData = (navigation: any, params: any) => ({
+export const getUserData = (navigation: any, params: Map<string, string>) => ({
     type: GET_LOGIN_USER,
     payload: params,
     navigation
@@ -141,3 +143,11 @@ export const contactBlogger = (params: any) => ({
     type: CONTACT_BLOGGER,
     payload: params,
 })
+
+export const showLoading = () => ({
+    type: SHOW_LOADING,
+});
+
+export const hideLoading = () => ({
+    type: HIDE_LOADING,
+});

@@ -9,7 +9,7 @@ const AddBlogScreen = (props: any) => {
     const dispatch = useDispatch();
 
     const { userData } = props.route.params;
-    console.log(userData.updateblogs)
+    // console.log(userData.updateblogs)
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');

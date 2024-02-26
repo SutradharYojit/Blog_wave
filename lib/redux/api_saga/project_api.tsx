@@ -25,7 +25,7 @@ export function* createProject(action: any): any {
         }).then(res => {
             return res.json()
         });
-        console.log(result);
+        // console.log(result);
         yield put({ type: SET_PROJECT, data: result });
         ToastAndroid.show('Project Created Successfully', ToastAndroid.SHORT);
 
@@ -37,7 +37,7 @@ export function* createProject(action: any): any {
 
 export function* fetchProject(action: any): any {
 
-    console.log("Enter fetch project API");
+    // console.log("Enter fetch project API");
     const { userId } = action.payload;
 
 
@@ -52,7 +52,7 @@ export function* fetchProject(action: any): any {
         }).then(res => {
             return res.json()
         });
-        console.log(result)
+        // console.log(result)
         yield put({ type: SET_PROJECT, data: result, loading: true });
     }
     catch (error) {
@@ -64,7 +64,7 @@ export function* removeProject(action: any): any {
 
     const { projectId } = action.payload;
 
-    console.log("Enter fetch project API");
+    // console.log("Enter fetch project API");
 
     const uri = `${APIConstants.baseUrl}Project/deleteProject/${projectId}`;
     try {
@@ -77,7 +77,7 @@ export function* removeProject(action: any): any {
         }).then(res => {
             return res.json()
         });
-        console.log(result)
+        // console.log(result)
         yield put({ type: SET_PROJECT_DELETE, data: result, loading: true });
         ToastAndroid.show('Project deleted Successfully', ToastAndroid.SHORT);
 
@@ -108,7 +108,7 @@ export function* updateProjectInfo(action: any): any {
         }).then(res => {
             return res.json()
         });
-        console.log(result);
+        // console.log(result);
         yield put({ type: UPDATE_PROJECT_ITEM, data: result });
         ToastAndroid.show('Project Updated Successfully', ToastAndroid.SHORT);
     }

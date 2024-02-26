@@ -1,8 +1,5 @@
 import { BlogModel } from "../../../model/blog_model";
-import { UserModel } from "../../../model/user_model";
 import { SET_BLOG, } from "../../action/action_const"
-
-// const initialState: BlogModel[] = [];
 
 interface InitialState {
     blog: BlogModel[];

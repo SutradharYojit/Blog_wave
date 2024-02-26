@@ -7,11 +7,7 @@ import { RoutesName } from "../../../resources/route_names";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from "../../../redux/action/action";
 import {
-    Button,
     Dialog,
-    CheckBox,
-    ListItem,
-    Avatar,
 } from '@rneui/themed';
 
 
@@ -44,7 +40,7 @@ const LoginScreen = (props: any) => {
                         color: 'black'
                     }}
                     onChangeText={(Text) => {
-                        console.log(Text)
+                        // console.log(Text)
                         setMail(Text)
                     }}
                     // value={'asdasd}
@@ -69,11 +65,10 @@ const LoginScreen = (props: any) => {
                 </TextInput>
                 <View style={{ alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => {
-                        console.log("asdasd")
+                        // console.log("asdasd")
                         setVisible3(true);
                         dispatch(getUserData(props.navigation, { email: userEmail, pass: userPass }));
                         setVisible3(loading);
-
                     }} style={{
                         height: 65,
                         width: 250,

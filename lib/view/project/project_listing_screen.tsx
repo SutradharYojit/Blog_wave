@@ -19,20 +19,6 @@ const ProjectListingScreen = (props: any) => {
     const projects: ProjectModel[] = useSelector((state: any) => state.projectList.project);
     const loading = useSelector((state: any) => state.projectList.loading);
 
-    let dataList = [
-        { id: 1, name: "Yojit", surname: "Suthar" },
-        { id: 2, name: "Jimmy", surname: "Sutradhar" },
-        { id: 3, name: "Viral", surname: "Suthar" },
-        { id: 4, name: "Ashish", surname: "Ojha" },
-        { id: 5, name: "Rahul", surname: "" },
-        { id: 6, name: "A", surname: "" },
-        { id: 7, name: "B", surname: "" },
-        { id: 8, name: "C", surname: "" },
-        { id: 9, name: "D", surname: "" },
-        { id: 10, name: "D", surname: "" },
-        { id: 11, name: "D", surname: "" },
-        { id: 12, name: "D", surname: "" },
-    ];
     return (
         <SafeAreaView style={styles.container}>
             <View style={{ flex: 1 }}>

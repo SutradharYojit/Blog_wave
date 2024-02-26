@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../resources/style";
@@ -13,8 +13,9 @@ const BloggercontactScreen = (props: any) => {
     let [title, setTitle] = useState('');
     let [load, setLoad] = useState(false);
     let [description, setDescription] = useState('');
-    const loading = useSelector((state: any) => state.contactUser.loading);
-
+    // const jimmy = useSelector((state: any) => state.contactUser);
+    const isLoading = useSelector((state: any) => state.loading.isLoading);
+    // const jimm = useSelector((state: any) => console.log("Contact user " + state.contactUser.loading));
 
     return (
         <SafeAreaView style={styles.container}>
@@ -34,7 +35,6 @@ const BloggercontactScreen = (props: any) => {
                         color: 'black'
                     }}
                     onChangeText={(Text) => {
-                        console.log(Text)
                         setTitle(Text)
                     }}
                     value={title}
@@ -52,24 +52,22 @@ const BloggercontactScreen = (props: any) => {
                         color: 'black'
                     }}
                     onChangeText={(Text) => {
-                        console.log(Text)
                         setDescription(Text)
                     }}
                     value={description}
                     placeholder='Description'>
                 </TextInput>
-                <Dialog isVisible={load}  >
-                    <Dialog.Loading />
-                </Dialog>
+
+                {
+                    isLoading ? <Dialog isVisible={true}  >
+                        <Dialog.Loading />
+                    </Dialog> : null
+                }
                 <View style={{ alignItems: 'center' }}>
                     <TouchableOpacity onPress={async () => {
-                        setLoad(true);
-                        dispatch(await contactBlogger({ email: email, bloggerName: userName, title: title, description: description }))
+                        dispatch(contactBlogger({ email: email, bloggerName: userName, title: title, description: description, navigation: props.navigation, }))
                         setTitle('')
                         setDescription('')
-                        props.navigation.goBack();
-                        setLoad(false);
-
                     }} style={{
                         height: 65,
                         width: 250,
@@ -85,7 +83,6 @@ const BloggercontactScreen = (props: any) => {
             </View>
         </SafeAreaView >
     );
-
 }
 
 export default BloggercontactScreen;

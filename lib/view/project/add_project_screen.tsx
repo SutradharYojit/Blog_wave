@@ -38,7 +38,6 @@ const AddProjectScreen = (props: any) => {
             }}>
                 <View style={{ flexDirection: 'row', }}>
                     <TouchableOpacity onPress={() => {
-                        console.log("asdasd");
                         props.navigation.goBack();
                     }}>
                         <Icons name="arrow-left" size={25} color="black"></Icons>

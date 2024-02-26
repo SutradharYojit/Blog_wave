@@ -24,7 +24,6 @@ export function* createBlog(action: any): any {
         }).then(res => {
             return res.json()
         });
-        console.log(result);
         yield put({ type: SET_BLOG_ITEM, data: result });
         ToastAndroid.show('Blog Create Successfully', ToastAndroid.SHORT);
 
@@ -35,8 +34,6 @@ export function* createBlog(action: any): any {
 }
 
 export function* fetchBlogs(): any {
-
-    console.log("Enter fetch Blogs API");
 
     const uri = `${APIConstants.baseUrl}blog/getBlogs`;
     try {
@@ -61,8 +58,6 @@ export function* removeBlog(action: any): any {
 
     const { blogId } = action.payload;
 
-    console.log("Enter fetch project API");
-
     const uri = `${APIConstants.baseUrl}blog/deleteBlog/${blogId}`;
     try {
         let result: any = yield fetch(uri, {
@@ -74,7 +69,6 @@ export function* removeBlog(action: any): any {
         }).then(res => {
             return res.json()
         });
-        console.log(result)
         yield put({ type: DELETE_BLOG_ITEM, data: result, loading: true });
         ToastAndroid.show('Blog deleted Successfully', ToastAndroid.SHORT);
     }
@@ -103,7 +97,6 @@ export function* updateBlogInfo(action: any): any {
         }).then(res => {
             return res.json()
         });
-        console.log(result);
         yield put({ type: UPDATE_BLOG_ITEM, data: result });
         ToastAndroid.show('Blog Updated Successfully', ToastAndroid.SHORT);
     }
