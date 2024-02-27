@@ -28,7 +28,7 @@ import {
 } from "./action_const"
 
 // Login & SignUp screen
-export const getUserData = (navigation: any, params: Map<string, string>) => ({
+export const getUserData = (navigation: any, params: any) => ({
     type: GET_LOGIN_USER,
     payload: params,
     navigation

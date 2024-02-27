@@ -8,6 +8,7 @@ import { fetchBlogInfo } from "../../redux/action/action";
 import { BlogModel } from "../../model/blog_model";
 import { Utils } from "../../services/util";
 import Loading from "../../components/loading";
+import { ColorManager } from "../../resources/color_manager";
 
 const BlogListingScreen = (props: any) => {
 
@@ -17,7 +18,6 @@ const BlogListingScreen = (props: any) => {
     }, [])
 
     const onRefresh = useCallback(() => {
-        // console.log("reload");
         setIsRefreshing(true);
         dispatch(fetchBlogInfo());
         setIsRefreshing(false);
@@ -40,11 +40,11 @@ const BlogListingScreen = (props: any) => {
                             props.navigation.navigate(RoutesName.blogDetailsScreen, { "blogData": data.item });
                         }}>
                             <View style={{
-                                backgroundColor: 'white',
+                                backgroundColor: ColorManager.whiteColor,
                                 padding: 15,
                                 marginBottom: 10,
                                 borderRadius: 10,
-                                shadowColor: 'black',
+                                shadowColor: ColorManager.blackColor,
                                 elevation: 8,
                             }}>
                                 <Text style={{ fontSize: 16, fontWeight: '600' }}>
@@ -52,7 +52,7 @@ const BlogListingScreen = (props: any) => {
                                 </Text>
 
                                 <View style={{
-                                    backgroundColor: 'blue',
+                                    backgroundColor: ColorManager.whiteColor,
                                     borderRadius: 10,
                                     marginVertical: 10
                                 }}>

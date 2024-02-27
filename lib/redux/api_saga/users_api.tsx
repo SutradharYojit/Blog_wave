@@ -2,7 +2,8 @@ import { put } from "redux-saga/effects";
 import { SET_ALL_USERS, SET_USER, SET_USER_DATA } from "../action/action_const";
 import { UserPreference } from "../../services/user_preference";
 import { APIConstants } from "../../services/api_constants";
-
+import { hideLoading, showLoading } from "../action/action";
+import { ToastAndroid } from "react-native";
 
 export function* fetchAllUsers(): any {
 
@@ -60,6 +61,8 @@ export function* editUser(action: any): any {
 
     const uri = `${APIConstants.baseUrl}Portfolio/updateProfile`;
     try {
+        yield put(showLoading());
+
         let result: any = yield fetch(uri, {
             method: "POST",
             headers: {
@@ -72,8 +75,13 @@ export function* editUser(action: any): any {
         });
         console.log(result)
         yield put({ type: SET_USER_DATA, data: result });
+        ToastAndroid.show('Profile Updated Successfully', ToastAndroid.SHORT);
+
     }
     catch (error) {
         console.error("Failed to UpdateUser", error);
+    }
+    finally {
+        yield put(hideLoading());
     }
 }

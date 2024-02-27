@@ -2,18 +2,26 @@ import React, { useEffect, useState } from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../resources/style";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateUser, updateUserProfile } from "../../redux/action/action";
+import { StringManager } from "../../resources/string_manager";
+import PrimaryButton from "../../components/buttons/primary_button";
+import { Dialog } from "@rneui/themed";
 
 const EditProfileScreen = (props: any) => {
 
     const { userData } = props.route.params;
-
     const dispatch = useDispatch();
     let [name, setuserName] = useState('');
     let [userEmail, setMail] = useState('');
     let [userBio, setBio] = useState('');
+    const isLoading = useSelector((state: any) => state.loading.isLoading);
 
+    const onPress = () => {
+        dispatch(updateUser({ userName: name, email: userEmail, bio: userBio }));
+        dispatch(updateUserProfile({ userName: name, email: userEmail, bio: userBio }));
+        props.navigation.goBack();
+    }
 
     useEffect(() => {
         setuserName(userData.userName);
@@ -35,49 +43,41 @@ const EditProfileScreen = (props: any) => {
             </View>
             <View>
                 <TextInput
-                    style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
+                    style={styles.textfilled}
                     onChangeText={(Text) => {
                         setuserName(Text)
                     }}
                     value={name}
-                    placeholder='Username'>
+                    placeholder={StringManager.userNameLabelTxt}>
                 </TextInput>
                 <TextInput
-                    style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
+                    style={styles.textfilled}
                     onChangeText={(Text) => {
                         setMail(Text)
                     }}
                     value={userEmail}
-                    placeholder='Email'>
+                    placeholder={StringManager.emailLabelTxt}>
                 </TextInput>
                 <TextInput
-                    style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
+                    style={styles.textfilled}
                     onChangeText={(Text) => {
                         setBio(Text)
                     }}
                     value={userBio}
-                    placeholder='Bio'>
+                    placeholder={StringManager.bioTxt}>
                 </TextInput>
+                {
+                    isLoading ? <Dialog isVisible={true}  >
+                        <Dialog.Loading />
+                    </Dialog> : null
+                }
                 <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity onPress={() => {
-                        dispatch(updateUser({ userName: name, email: userEmail, bio: userBio }));
-                        dispatch(updateUserProfile({ userName: name, email: userEmail, bio: userBio }));
-                    }} style={{
-                        height: 65,
-                        width: 250,
-                        marginTop: 15,
-                        backgroundColor: 'teal',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        borderRadius: 15,
-                    }}>
-                        <Text style={{ color: 'white', fontSize: 19 }} >Update Profile</Text>
-                    </TouchableOpacity>
+                    <PrimaryButton onPress={onPress}
+                        label={StringManager.updateProfileTxt}></PrimaryButton>
                 </View>
             </View>
         </SafeAreaView >
     );
-
 }
 
 export default EditProfileScreen;

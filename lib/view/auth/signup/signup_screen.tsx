@@ -6,80 +6,79 @@ import { StringManager } from "../../../resources/string_manager";
 import { RoutesName } from "../../../resources/route_names";
 import { useDispatch, useSelector } from "react-redux";
 import { getSignupUser } from "../../../redux/action/action";
+import PrimaryButton from "../../../components/buttons/primary_button";
+import { ColorManager } from "../../../resources/color_manager";
+import { Dialog } from "@rneui/themed";
 
 
 const SignUpScreen = (props: any) => {
     let [userName, setName] = useState('');
     let [userEmail, setMail] = useState('');
     let [userPass, setPass] = useState('');
+    const [visible3, setVisible3] = useState(false);
+    const loading = useSelector((state: any) => state.Auth.loading)
 
     const dispatch = useDispatch();
+    const onPress = () => {
+        setVisible3(true);
+        dispatch(getSignupUser(props.navigation, {
+            name: userName,
+            email: userEmail,
+            pass: userPass
+        }));
+        setVisible3(loading);
+    }
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{ flex: 1, justifyContent: 'center' }}>
+            <View style={styles.viewStyle}>
                 <View style={{ alignItems: 'center' }}>
                     <Image style={{ width: 150, height: 150 }} source={require('../../../../assets/icons/blogger.png')} />
                 </View>
                 <Text style={styles.appTitle}>{StringManager.appTitle}</Text>
-                <Text style={[styles.text, { fontSize: 19, marginVertical: 10 }]}>SignUp</Text>
+                <Text style={[styles.text, { fontSize: 19, marginVertical: 10 }]}>{StringManager.signUpTxt}</Text>
                 <TextInput
-                    style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
+                    style={styles.textfilled}
                     onChangeText={(Text) => {
                         setName(Text)
                     }}
-                    // value={'asdasd}
-                    placeholder='UserName'>
+                    placeholder={StringManager.userNameLabelTxt}>
                 </TextInput>
                 <TextInput
-                    style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
+                    style={styles.textfilled}
                     onChangeText={(Text) => {
                         setMail(Text)
                     }}
-                    // value={'asdasd}
-                    placeholder='Email'>
+                    placeholder={StringManager.emailLabelTxt}>
                 </TextInput>
                 <TextInput
-                    style={{ marginTop: 10, borderColor: 'teal', borderWidth: 2.5, borderRadius: 10, fontSize: 18, paddingLeft: 10 }}
+                    style={styles.textfilled}
                     onChangeText={(Text) => {
                         setPass(Text)
                     }}
-                    // value={'asdasd}
-                    placeholder='Passsword'>
+                    placeholder={StringManager.passLabelTxt}>
                 </TextInput>
                 <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity style={{
-                        height: 65,
-                        width: 250,
-                        marginTop: 15,
-                        backgroundColor: 'teal',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        borderRadius: 15
-
-                    }}
-                        onPress={() => {
-                            dispatch(getSignupUser(props.navigation, { name: userName, email: userEmail, pass: userPass }));
-
-                        }}>
-                        <Text style={{ color: 'white', fontSize: 19 }} >SingUp</Text>
-                    </TouchableOpacity>
+                    <PrimaryButton onPress={onPress} label={StringManager.signUpTxt}></PrimaryButton>
                 </View>
 
                 <View style={{ marginTop: 10, flexDirection: 'row', justifyContent: 'center' }}>
                     <Text style={{ fontSize: 16, color: 'teal', fontWeight: "400" }}>
-                        Already have an account?{' '}
+                        {StringManager.haveAccountTxt}
                     </Text>
                     <TouchableOpacity onPress={() => {
                         props.navigation.navigate(RoutesName.loginScreen);
                     }}   >
                         <Text style={{
                             fontSize: 16,
-                            color: 'black',
+                            color: ColorManager.blackColor,
                             fontWeight: "600"
-                        }}>Login</Text>
+                        }}>{StringManager.LoginTxt}</Text>
                     </TouchableOpacity>
                 </View>
+                <Dialog isVisible={visible3}  >
+                    <Dialog.Loading />
+                </Dialog>
             </View>
         </SafeAreaView>
     );

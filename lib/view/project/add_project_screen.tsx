@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Text, TextInput, ToastAndroid, TouchableOpacity, View } from "react-native";
+import { TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../resources/style";
-import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProject, featchProjectInfo, updateProject } from "../../redux/action/action";
 import { UserPreference } from "../../services/user_preference";
+import { ColorManager } from "../../resources/color_manager";
+import AppBar from "../../components/app_bar";
+import { StringManager } from "../../resources/string_manager";
+import PrimaryButton from "../../components/buttons/primary_button";
+import { Dialog } from "@rneui/themed";
 
 const AddProjectScreen = (props: any) => {
 
@@ -13,8 +17,9 @@ const AddProjectScreen = (props: any) => {
     let [title, setTitle] = useState('');
     let [description, setDescription] = useState('');
     let [url, setUrl] = useState('');
-    // const { projectData, updateProjects } = props.route.params;
     const { userData } = props.route.params;
+    const isLoading = useSelector((state: any) => state.loading.isLoading);
+
 
     useEffect(() => {
         if (userData.updateProjects) {
@@ -23,118 +28,71 @@ const AddProjectScreen = (props: any) => {
             setUrl(userData.projectData.projectUrl)
         }
     }, [])
+
+    const onPress = () => {
+        if (userData.updateProjects) {
+            dispatch(updateProject({ title: title, description: description, url: url, id: userData.projectData.id }));
+            dispatch(featchProjectInfo({ userId: UserPreference.userId }))
+            props.navigation.goBack();
+            props.navigation.goBack();
+        }
+        else {
+            dispatch(addProject({ title: title, description: description, url: url }));
+            dispatch(featchProjectInfo({ userId: UserPreference.userId }))
+            props.navigation.goBack();
+        }
+    }
     return (
         <SafeAreaView style={{
             flex: 1,
-            backgroundColor: 'white',
+            backgroundColor: ColorManager.whiteColor,
         }}>
-            <View style={{
-                paddingHorizontal: 15,
-                height: 55,
-                flexDirection: 'row',
-                backgroundColor: "white",
-                justifyContent: 'space-between',
-                alignItems: 'center'
-            }}>
-                <View style={{ flexDirection: 'row', }}>
-                    <TouchableOpacity onPress={() => {
-                        props.navigation.goBack();
-                    }}>
-                        <Icons name="arrow-left" size={25} color="black"></Icons>
-                    </TouchableOpacity>
-                    <Text
-                        style={{
-                            textAlignVertical: "center",
-                            color: 'black',
-                            fontSize: 20,
-                            fontWeight: '500',
-                            paddingLeft: 20
-                        }}>
-                        Add Project
-                    </Text>
-                </View>
-            </View>
+            <AppBar title={userData.updateProjects ? StringManager.updateProjectTxt : StringManager.addProjectTxt} nav={() => {
+                props.navigation.goBack();
+            }}></AppBar>
             <View style={{
                 flex: 1,
-                backgroundColor: 'white',
+                backgroundColor: ColorManager.whiteColor,
                 padding: 15
             }}>
                 <TextInput
-                    placeholderTextColor={'grey'}
-                    style={{
-                        marginTop: 10,
-                        borderColor: 'teal',
-                        borderWidth: 2.5,
-                        borderRadius: 10,
-                        fontSize: 18,
-                        color: 'black',
-                        paddingLeft: 10
-                    }}
+                    placeholderTextColor={ColorManager.greyColor}
+                    style={styles.textfilled}
                     onChangeText={(Text) => {
                         setTitle(Text)
                     }}
                     value={title}
-                    placeholder='Title'>
+                    placeholder={StringManager.titleTxt}>
                 </TextInput>
                 <TextInput
-                    placeholderTextColor={'grey'}
-                    style={{
-                        marginTop: 10,
-                        borderColor: 'teal',
-                        borderWidth: 2.5,
-                        borderRadius: 10,
-                        fontSize: 18,
-                        color: 'black',
-                        paddingLeft: 10
-                    }}
+                    placeholderTextColor={ColorManager.greyColor}
+                    style={styles.textfilled}
                     onChangeText={(Text) => {
                         setDescription(Text)
                     }}
                     value={description}
-                    placeholder='Description'>
+                    placeholder={StringManager.descriptionTxt}>
                 </TextInput>
                 <TextInput
-                    placeholderTextColor={'grey'}
-                    style={{
-                        marginTop: 10,
-                        borderColor: 'teal',
-                        borderWidth: 2.5,
-                        borderRadius: 10,
-                        fontSize: 18,
-                        color: 'black',
-                        paddingLeft: 10
-                    }}
+                    placeholderTextColor={ColorManager.greyColor}
+                    style={styles.textfilled}
                     onChangeText={(Text) => {
                         setUrl(Text)
                     }}
                     value={url}
-                    placeholder='URL'>
+                    placeholder={StringManager.urlTxt}>
                 </TextInput>
+                {
+                    isLoading ? <Dialog isVisible={true}  >
+                        <Dialog.Loading />
+                    </Dialog> : null
+                }
                 <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity onPress={() => {
-                        if (userData.updateProjects) {
-                            dispatch(updateProject({ title: title, description: description, url: url, id: userData.projectData.id }));
-                            dispatch(featchProjectInfo({ userId: UserPreference.userId }))
-                            props.navigation.goBack();
-                        }
-                        else {
-                            dispatch(addProject({ title: title, description: description, url: url }));
-                            // onPositiveClickListener();
-                            // props.navigation.goBack();
-                        }
-                    }} style={{
-                        height: 65,
-                        width: 250,
-                        marginTop: 15,
-                        backgroundColor: 'teal',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        borderRadius: 15,
-                    }}>
-                        {
-                            userData.updateProjects == true ? <Text style={{ color: 'white', fontSize: 19 }} >Update Project</Text> : <Text style={{ color: 'white', fontSize: 19 }} >Add Project</Text>
-                        }
-                    </TouchableOpacity>
+                    <PrimaryButton onPress={onPress}
+                        label={userData.updateProjects == true ?
+                            StringManager.updateProjectBtnTxt :
+                            StringManager.addProjectBtnTxt
+                        }></PrimaryButton>
                 </View>
             </View>
         </SafeAreaView >

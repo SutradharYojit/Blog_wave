@@ -17,6 +17,7 @@ import { Provider } from 'react-redux';
 import store from '../redux/store';
 import ProjectDetailScreen from '../view/project/project_details_screen';
 import AddProjectScreen from '../view/project/add_project_screen';
+import WebViewScreen from '../view/web_view/web_view_screen';
 
 function App(): React.JSX.Element {
 
@@ -83,6 +84,12 @@ function App(): React.JSX.Element {
               component={AddProjectScreen}
               options={{
                 headerShown: false
+              }} >
+            </ScreenStack.Screen>
+            <ScreenStack.Screen name={RoutesName.webViewScreen}
+              component={WebViewScreen}
+              options={{
+                title: "Project Url",
               }} >
             </ScreenStack.Screen>
 

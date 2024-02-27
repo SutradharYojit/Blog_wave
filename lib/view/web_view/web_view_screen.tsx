@@ -2,16 +2,12 @@ import React from "react";
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../resources/style";
+import WebView from "react-native-webview";
 
-const WebViewScreen = () => {
+const WebViewScreen = (props: any) => {
+    const { projectUrl } = props;
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>
-                    WebView Screen
-                </Text>
-            </View>
-        </SafeAreaView >
+        <WebView source={{ uri: 'https://reactnative.dev/' }} style={{ flex: 1 }} />
     );
 }
 

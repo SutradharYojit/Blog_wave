@@ -3,9 +3,10 @@ import { APIConstants } from "../../services/api_constants";
 import { UserPreference } from "../../services/user_preference";
 import { SET_PROJECT, SET_PROJECT_DELETE, UPDATE_PROJECT_ITEM } from "../action/action_const";
 import { ToastAndroid } from "react-native";
+import { hideLoading, showLoading } from "../action/action";
 
 export function* createProject(action: any): any {
-    const { title, description, url } = action.payload;
+    const { title, description, url, navigation } = action.payload;
     const body = {
         "title": title,
         "description": description,
@@ -15,6 +16,7 @@ export function* createProject(action: any): any {
 
     const uri = `${APIConstants.baseUrl}Project/createproject`;
     try {
+        yield put(showLoading());
         let result: any = yield fetch(uri, {
             method: "POST",
             headers: {
@@ -25,13 +27,16 @@ export function* createProject(action: any): any {
         }).then(res => {
             return res.json()
         });
-        // console.log(result);
+        console.log(result);
         yield put({ type: SET_PROJECT, data: result });
         ToastAndroid.show('Project Created Successfully', ToastAndroid.SHORT);
 
     }
     catch (error) {
         console.error("Failed to Create Project", error);
+    }
+    finally {
+        yield put(hideLoading());
     }
 }
 
@@ -98,6 +103,8 @@ export function* updateProjectInfo(action: any): any {
 
     const uri = `${APIConstants.baseUrl}Project/updateProject`;
     try {
+        yield put(showLoading());
+
         let result: any = yield fetch(uri, {
             method: "POST",
             headers: {
@@ -108,13 +115,17 @@ export function* updateProjectInfo(action: any): any {
         }).then(res => {
             return res.json()
         });
-        // console.log(result);
+        console.log(result);
         yield put({ type: UPDATE_PROJECT_ITEM, data: result });
         ToastAndroid.show('Project Updated Successfully', ToastAndroid.SHORT);
     }
     catch (error) {
         console.error("Failed to Update Project", error);
     }
+    finally {
+        yield put(hideLoading());
+    }
+
 }
 
 

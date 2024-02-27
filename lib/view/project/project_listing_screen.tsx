@@ -8,10 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { featchProjectInfo } from "../../redux/action/action";
 import { ProjectModel } from "../../model/project_model";
 import { UserPreference } from "../../services/user_preference";
+import { ColorManager } from "../../resources/color_manager";
 
 const ProjectListingScreen = (props: any) => {
     const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(featchProjectInfo({ userId: UserPreference.userId }))
     }, [])
@@ -44,7 +44,7 @@ const ProjectListingScreen = (props: any) => {
                                         numberOfLines={1}
                                         style={{
                                             fontSize: 18,
-                                            color: 'black',
+                                            color: ColorManager.blackColor,
                                             flex: 1,
                                         }}>  {data.item.title}</Text>
                                 </View>
@@ -60,7 +60,7 @@ const ProjectListingScreen = (props: any) => {
                                         numberOfLines={1}
                                         style={{
                                             fontSize: 18,
-                                            color: 'blue',
+                                            color: ColorManager.blueColor,
                                             flex: 1,
                                             textDecorationLine: 'underline'
                                         }}> {data.item.projectUrl}</Text>
@@ -76,7 +76,7 @@ const ProjectListingScreen = (props: any) => {
                         margin: 16,
                         right: 0,
                         bottom: 0,
-                        backgroundColor: 'white'
+                        backgroundColor: ColorManager.whiteColor
                     }}
                     onPress={() => {
                         props.navigation.navigate(RoutesName.addProjectScreen, {

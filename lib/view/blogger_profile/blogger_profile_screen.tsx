@@ -8,6 +8,9 @@ import { featchProjectInfo } from "../../redux/action/action";
 import { ProjectModel } from "../../model/project_model";
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { UserPreference } from "../../services/user_preference";
+import { StringManager } from "../../resources/string_manager";
+import { ColorManager } from "../../resources/color_manager";
+import AppBar from "../../components/app_bar";
 
 
 const BloggerProfileScreen = (props: any) => {
@@ -26,60 +29,37 @@ const BloggerProfileScreen = (props: any) => {
     return (
         <SafeAreaView style={{
             flex: 1,
-            backgroundColor: 'white',
+            backgroundColor: ColorManager.whiteColor,
         }}>
-            <View style={{
-                paddingHorizontal: 15,
-                height: 55,
-                flexDirection: 'row',
-                backgroundColor: "white",
-                justifyContent: 'space-between',
-                alignItems: 'center'
+            <AppBar title={StringManager.profileAppBarTitle} nav={() => {
+                props.navigation.goBack();
             }}>
-                <View style={{ flexDirection: 'row', }}>
-                    <TouchableOpacity onPress={() => {
-                        props.navigation.goBack();
-                    }}>
-                        <Icons name="arrow-left" size={25} color="black"></Icons>
-                    </TouchableOpacity>
-                    <Text
-                        style={{
-                            textAlignVertical: "center",
-                            color: 'black',
-                            fontSize: 20,
-                            fontWeight: '500',
-                            paddingLeft: 20
-                        }}>
-                        Profile
-                    </Text>
-                </View>
-
                 <View style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between'
                 }}>
                     <TouchableOpacity onPress={() => {
-                        props.navigation.navigate(RoutesName.bloggerContactScreen, { "email": userInfo.email, "userName": userInfo.userName })
+                        props.navigation.navigate(RoutesName.bloggerContactScreen,
+                            {
+                                "email": userInfo.email,
+                                "userName": userInfo.userName
+                            })
                     }}>
                         <Text style={{
                             color: 'teal',
                             fontSize: 19,
                             fontWeight: '400'
-                        }}>Contact</Text>
+                        }}>{StringManager.contactTxt}</Text>
                     </TouchableOpacity>
-
                 </View>
-
-
-
-            </View>
+            </AppBar>
             <View style={{
                 flex: 1,
-                backgroundColor: 'white',
+                backgroundColor: ColorManager.whiteColor,
                 padding: 15
             }}>
                 <View style={{ flexDirection: 'row', }}>
-                    <View style={{ height: 90, width: 90, backgroundColor: 'brown', borderRadius: 50 }}>
+                    <View style={{ height: 90, width: 90, borderRadius: 50 }}>
                         <Image
                             width={90}
                             height={90}
@@ -90,27 +70,26 @@ const BloggerProfileScreen = (props: any) => {
                         </Image>
                     </View>
                     <View style={{ paddingLeft: 10, paddingTop: 8 }}>
-                        <Text style={{ fontSize: 20, fontWeight: '700', color: 'black' }}>
+                        <Text style={{ fontSize: 20, fontWeight: '700', color: ColorManager.blackColor }}>
                             {userInfo.userName}
                         </Text>
                         <Text style={{ fontSize: 18, fontWeight: '700', paddingTop: 5 }}>
                             {userInfo.email}
                         </Text>
                     </View>
-
-
                 </View>
 
                 <View style={{ paddingTop: 15 }}>
-                    <Text style={{ fontSize: 20, color: 'black', fontWeight: '700' }}>
-                        Bio
+                    <Text style={{ fontSize: 20, color: ColorManager.blackColor, fontWeight: '700' }}>
+                        {StringManager.bioTxt}
+
                     </Text>
-                    <Text style={{ fontSize: 18, color: 'black' }}>
+                    <Text style={{ fontSize: 18, color: ColorManager.blackColor }}>
                         {userInfo.bio}
                     </Text>
                 </View>
-                <Text style={{ fontSize: 20, color: 'black', fontWeight: '700', paddingVertical: 8 }}>
-                    Projects
+                <Text style={{ fontSize: 20, color: ColorManager.blackColor, fontWeight: '700', paddingVertical: 8 }}>
+                    {StringManager.projectsTxt}
                 </Text>
 
                 {
@@ -123,7 +102,7 @@ const BloggerProfileScreen = (props: any) => {
                             }
                         }>
                             <Text>
-                                No Projects
+                                {StringManager.emptyProjects}
                             </Text>
                         </View> : <FlatList data={projects}
                             renderItem={(data) =>
@@ -145,9 +124,9 @@ const BloggerProfileScreen = (props: any) => {
                                             }} source={require('../../../assets/icons/tag.png')} />
                                             <Text numberOfLines={1} style={{
                                                 fontSize: 18,
-                                                color: 'black',
+                                                color: ColorManager.blackColor,
                                                 flex: 1,
-                                            }}>  {data.item.title}</Text>
+                                            }}> {data.item.title}</Text>
                                         </View>
                                         <View style={{ flexDirection: 'row', }}>
                                             <Image style={{
@@ -158,10 +137,10 @@ const BloggerProfileScreen = (props: any) => {
                                             }} source={require('../../../assets/icons/url.png')} />
                                             <Text numberOfLines={1} style={{
                                                 fontSize: 18,
-                                                color: 'blue',
+                                                color: ColorManager.blueColor,
                                                 flex: 1,
                                                 textDecorationLine: 'underline'
-                                            }}>   {data.item.projectUrl}</Text>
+                                            }}>{data.item.projectUrl}</Text>
 
                                         </View>
                                     </View>
@@ -177,11 +156,12 @@ const BloggerProfileScreen = (props: any) => {
                                 alignItems: 'center'
                             }
                         }>
-                            <ActivityIndicator size="large" color="black" />
+                            <ActivityIndicator size="large" color={ColorManager.blackColor} />
                         </View>
                 }
 
             </View>
+
         </SafeAreaView >
     );
 }

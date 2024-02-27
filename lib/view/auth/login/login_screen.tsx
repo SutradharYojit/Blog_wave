@@ -9,6 +9,8 @@ import { getUserData } from "../../../redux/action/action";
 import {
     Dialog,
 } from '@rneui/themed';
+import PrimaryButton from "../../../components/buttons/primary_button";
+import { ColorManager } from "../../../resources/color_manager";
 
 
 const LoginScreen = (props: any) => {
@@ -19,80 +21,51 @@ const LoginScreen = (props: any) => {
     const [visible3, setVisible3] = useState(false);
     const loading = useSelector((state: any) => state.Auth.loading)
 
+    const onPress = () => {
+        setVisible3(true);
+        dispatch(getUserData(props.navigation, { email: userEmail, pass: userPass }));
+        setVisible3(loading);
+    }
+
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{ flex: 1, justifyContent: 'center' }}>
+            <View style={styles.viewStyle}>
                 <View style={{ alignItems: 'center' }}>
                     <Image style={{ width: 150, height: 150 }} source={require('../../../../assets/icons/blogger.png')} />
                 </View>
                 <Text style={styles.appTitle}>{StringManager.appTitle}</Text>
                 <Text style={[styles.text, { fontSize: 19, marginVertical: 10 }]}>{StringManager.loginTitle}</Text>
                 <TextInput
-
-                    placeholderTextColor="black"
-                    style={{
-                        marginTop: 10,
-                        borderColor: 'teal',
-                        borderWidth: 2.5,
-                        borderRadius: 10,
-                        fontSize: 18,
-                        paddingLeft: 10,
-                        color: 'black'
-                    }}
+                    placeholderTextColor={ColorManager.blackColor}
+                    style={styles.textfilled}
                     onChangeText={(Text) => {
-                        // console.log(Text)
                         setMail(Text)
                     }}
-                    // value={'asdasd}
-                    placeholder='Email'>
+                    placeholder={StringManager.emailLabelTxt}>
                 </TextInput>
                 <TextInput
-                    placeholderTextColor="black"
-                    style={{
-                        marginTop: 10,
-                        borderColor: 'teal',
-                        borderWidth: 2.5,
-                        borderRadius: 10,
-                        fontSize: 18,
-                        color: 'black',
-                        paddingLeft: 10
-                    }}
+                    placeholderTextColor={ColorManager.blackColor}
+                    style={styles.textfilled}
                     onChangeText={(Text) => {
                         setPass(Text)
                     }}
-                    // value={'asdasd}
-                    placeholder='Passsword'>
+                    placeholder={StringManager.passLabelTxt}>
                 </TextInput>
                 <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity onPress={() => {
-                        // console.log("asdasd")
-                        setVisible3(true);
-                        dispatch(getUserData(props.navigation, { email: userEmail, pass: userPass }));
-                        setVisible3(loading);
-                    }} style={{
-                        height: 65,
-                        width: 250,
-                        marginTop: 15,
-                        backgroundColor: 'teal',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        borderRadius: 15,
-                    }}>
-                        <Text style={{ color: 'white', fontSize: 19 }} >Login</Text>
-                    </TouchableOpacity>
+                    <PrimaryButton onPress={onPress} label={StringManager.LoginTxt}></PrimaryButton>
                 </View>
                 <View style={{ marginTop: 10, flexDirection: 'row', justifyContent: 'center' }}>
                     <Text style={{ fontSize: 16, color: 'teal', fontWeight: "400" }}>
-                        Don't have an account?{' '}
+                        {StringManager.noAccountTxt}
                     </Text>
                     <TouchableOpacity onPress={() => {
                         props.navigation.navigate(RoutesName.signupScreen);
                     }}   >
                         <Text style={{
                             fontSize: 16,
-                            color: 'black',
+                            color: ColorManager.blackColor,
                             fontWeight: "600"
-                        }}>SignUp</Text>
+                        }}>{StringManager.signUpTxt}</Text>
                     </TouchableOpacity>
                 </View>
                 <Dialog isVisible={visible3}  >

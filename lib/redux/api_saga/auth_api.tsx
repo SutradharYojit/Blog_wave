@@ -34,6 +34,8 @@ export function* LoginAPI(action: any): any {
 }
 
 export function* SignUpAPI(action: any): any {
+    const userPreference = new UserPreference();
+
     const { name, email, pass } = action.payload;
     const { navigation } = action;
     const body = {
@@ -51,7 +53,8 @@ export function* SignUpAPI(action: any): any {
             },
             body: JSON.stringify(body)
         }).then(res => res.json());
-        yield put({ type: SET_SIGNUP_USER, data: result });
+        yield put({ type: SET_SIGNUP_USER, data: result, loading: false });
+        yield userPreference.saveLoginUserInfo(result.token, result.userId);
         navigation.replace(RoutesName.dashboardScreen);
     }
     catch (error) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Button, FlatList, Image, Modal, Text, TouchableOpacity, View } from "react-native";
+import { Button, FlatList, Image, Modal, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../resources/style";
 import Icons from 'react-native-vector-icons/MaterialIcons'
@@ -19,8 +19,6 @@ const UserProfileScreen = (props: any) => {
     }, [])
     const userPreference = new UserPreference();
 
-
-    // const currentUser11: UserModel = useSelector((state: any) => console.log(state.User));
     const loading: boolean = useSelector((state: any) => state.User.loading);
     const currentUser: UserModel = useSelector((state: any) => state.User.user);
 
@@ -76,7 +74,7 @@ const UserProfileScreen = (props: any) => {
                 loading == true ?
                     <View style={{ flex: 1 }}>
                         <View style={{ flexDirection: 'row', }}>
-                            <View style={{ height: 90, width: 90, backgroundColor: 'brown', borderRadius: 50 }}>
+                            <View style={{ height: 90, width: 90, borderRadius: 50 }}>
                                 <Image
                                     width={90}
                                     height={90}
@@ -163,29 +161,4 @@ const UserProfileScreen = (props: any) => {
     );
 }
 
-/* const Card = (props: any) => {
-    const icon = props.icon;
-    const label = props.label;
-    const path = props.path;
-    const navigation = props.navigation;
-
-    return (
-        <TouchableOpacity onPress={() => navigation.navigate(path)} >
-            <View style={{ flexDirection: 'row', padding: 12, justifyContent: 'space-between' }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }} >
-                    <Icons name={icon} size={30} color={'black'} ></Icons>
-                    <Text style={{
-                        fontSize: 18,
-                        color: 'black',
-                        paddingLeft: 10
-                    }}>
-                        {label}
-                    </Text>
-                </View>
-                <Icons name="chevron-right" size={30} color={'black'} ></Icons>
-            </View>
-        </TouchableOpacity >
-    );
-}
- */
 export default UserProfileScreen;
