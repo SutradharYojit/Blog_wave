@@ -61,7 +61,7 @@ const BlogListingScreen = (props: any) => {
                                     }} style={{ height: 190, borderRadius: 10, }}>
                                     </Image>
                                 </View>
-                                <Text style={{ fontSize: 18, fontWeight: '900', color: 'black' }}>
+                                <Text style={{ fontSize: 18, fontWeight: '900', color: ColorManager.blackColor }}>
                                     {data.item.title}
                                 </Text>
 

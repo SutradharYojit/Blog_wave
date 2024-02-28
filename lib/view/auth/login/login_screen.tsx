@@ -11,6 +11,7 @@ import {
 } from '@rneui/themed';
 import PrimaryButton from "../../../components/buttons/primary_button";
 import { ColorManager } from "../../../resources/color_manager";
+import { Snackbar } from "react-native-paper";
 
 
 const LoginScreen = (props: any) => {
@@ -20,11 +21,17 @@ const LoginScreen = (props: any) => {
     let [userPass, setPass] = useState('');
     const [visible3, setVisible3] = useState(false);
     const loading = useSelector((state: any) => state.Auth.loading)
+    const [visible, setVisible] = useState(false);
+
+    const onToggleSnackBar = () => setVisible(!visible);
+
+    const onDismissSnackBar = () => setVisible(false);
 
     const onPress = () => {
-        setVisible3(true);
+        onToggleSnackBar()
+        /* setVisible3(true);
         dispatch(getUserData(props.navigation, { email: userEmail, pass: userPass }));
-        setVisible3(loading);
+        setVisible3(loading); */
     }
 
     return (
@@ -55,7 +62,7 @@ const LoginScreen = (props: any) => {
                     <PrimaryButton onPress={onPress} label={StringManager.LoginTxt}></PrimaryButton>
                 </View>
                 <View style={{ marginTop: 10, flexDirection: 'row', justifyContent: 'center' }}>
-                    <Text style={{ fontSize: 16, color: 'teal', fontWeight: "400" }}>
+                    <Text style={{ fontSize: 16, color: ColorManager.tealColor, fontWeight: "400" }}>
                         {StringManager.noAccountTxt}
                     </Text>
                     <TouchableOpacity onPress={() => {
@@ -71,8 +78,16 @@ const LoginScreen = (props: any) => {
                 <Dialog isVisible={visible3}  >
                     <Dialog.Loading />
                 </Dialog>
+                <Snackbar
+                    visible={visible}
+                    duration={800}
+                    onDismiss={onDismissSnackBar}
+                    style={{ backgroundColor: ColorManager.redColor }}
+                >
+                    <Text style={{ fontSize: 15, fontWeight: '700', color: ColorManager.whiteColor }}> Hey there! I'm a Snackbar.</Text>
+                </Snackbar>
             </View>
-        </SafeAreaView>
+        </SafeAreaView >
     );
 }
 

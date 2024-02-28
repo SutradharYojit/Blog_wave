@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ActivityIndicator, View } from "react-native";
+import { ColorManager } from "../resources/color_manager";
 
 
 const Loading = () => {
@@ -11,7 +12,7 @@ const Loading = () => {
                 alignItems: 'center'
             }
         }>
-            <ActivityIndicator size="large" color="black" />
+            <ActivityIndicator size="large" color={ColorManager.blackColor} />
         </View>
     );
 

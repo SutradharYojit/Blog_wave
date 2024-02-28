@@ -9,6 +9,7 @@ import { getUserInfo } from "../../redux/action/action";
 import { UserModel } from "../../model/user_model";
 import { UserPreference } from "../../services/user_preference";
 import Loading from "../../components/loading";
+import { ColorManager } from "../../resources/color_manager";
 
 const UserProfileScreen = (props: any) => {
 
@@ -85,19 +86,19 @@ const UserProfileScreen = (props: any) => {
                                 </Image>
                             </View>
                             <View style={{ paddingLeft: 10, paddingTop: 8 }}>
-                                <Text style={{ fontSize: 18, fontWeight: '700', color: 'black' }}>
+                                <Text style={{ fontSize: 18, fontWeight: '700', color: ColorManager.blackColor }}>
                                     {currentUser.userName}
                                 </Text>
-                                <Text style={{ fontSize: 18, fontWeight: '700', paddingTop: 5, color: 'grey' }}>
+                                <Text style={{ fontSize: 18, fontWeight: '700', paddingTop: 5, color: ColorManager.greyColor }}>
                                     {currentUser.email}
                                 </Text>
                             </View>
                         </View>
                         <View style={{ paddingVertical: 15 }}>
-                            <Text style={{ fontSize: 20, color: 'black', fontWeight: '700' }}>
+                            <Text style={{ fontSize: 20, color: ColorManager.blackColor, fontWeight: '700' }}>
                                 Bio
                             </Text>
-                            <Text style={{ fontSize: 15, color: 'black' }}>
+                            <Text style={{ fontSize: 15, color: ColorManager.blackColor }}>
                                 {currentUser.bio}
                             </Text>
                         </View>
@@ -109,16 +110,16 @@ const UserProfileScreen = (props: any) => {
                                 }} >
                                     <View style={{ flexDirection: 'row', padding: 12, justifyContent: 'space-between' }}>
                                         <View style={{ flexDirection: 'row', alignItems: 'center' }} >
-                                            <Icons name={data.item.icon} size={30} color={'black'} ></Icons>
+                                            <Icons name={data.item.icon} size={30} color={ColorManager.blackColor} ></Icons>
                                             <Text style={{
                                                 fontSize: 18,
-                                                color: 'black',
+                                                color: ColorManager.blackColor,
                                                 paddingLeft: 10
                                             }}>
                                                 {data.item.label}
                                             </Text>
                                         </View>
-                                        <Icons name="chevron-right" size={30} color={'black'} ></Icons>
+                                        <Icons name="chevron-right" size={30} color={ColorManager.blackColor} ></Icons>
                                     </View>
                                 </TouchableOpacity >
                                 }
@@ -127,10 +128,10 @@ const UserProfileScreen = (props: any) => {
                         <TouchableOpacity onPress={() => setLogoutDialogVisible(true)}>
                             <View style={{ flexDirection: 'row', padding: 12, justifyContent: 'space-between' }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }} >
-                                    <Icons name="logout" size={30} color={'red'} ></Icons>
+                                    <Icons name="logout" size={30} color={ColorManager.redColor} ></Icons>
                                     <Text style={{
                                         fontSize: 18,
-                                        color: 'red',
+                                        color: ColorManager.redColor,
                                         paddingLeft: 10
                                     }}>
                                         Logout

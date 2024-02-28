@@ -24,6 +24,8 @@ export function* LoginAPI(action: any): any {
         }).then(res => {
             return res.json()
         });
+        console.log(result.status)
+        console.log(result)
         yield put({ type: SET_LOGIN_USER, data: result, loading: false });
         yield userPreference.saveLoginUserInfo(result.token, result.userId);
         navigation.replace(RoutesName.dashboardScreen);
@@ -52,7 +54,10 @@ export function* SignUpAPI(action: any): any {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(body)
-        }).then(res => res.json());
+        })/* .then(res => res.json()) */;
+        console.log(result.status)
+        result = yield result.json();
+        console.log(result)
         yield put({ type: SET_SIGNUP_USER, data: result, loading: false });
         yield userPreference.saveLoginUserInfo(result.token, result.userId);
         navigation.replace(RoutesName.dashboardScreen);

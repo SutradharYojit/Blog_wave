@@ -16,7 +16,6 @@ import {
     SET_BLOG,
     SET_BLOG_ITEM,
     SET_LOGIN_USER,
-    SET_PROJECT_ITEM,
     SET_SIGNUP_USER,
     SET_USER,
     SET_USER_DATA,

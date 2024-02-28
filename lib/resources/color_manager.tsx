@@ -4,4 +4,6 @@ export class ColorManager {
     static greyColor = 'grey';
     static tealColor = 'teal';
     static blueColor = 'blue';
+    static redColor = 'red';
+
 }

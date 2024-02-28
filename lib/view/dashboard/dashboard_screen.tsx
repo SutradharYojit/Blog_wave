@@ -6,6 +6,7 @@ import BlogListingScreen from "../blog_listing/blog_listing";
 import UserProfileScreen from "../user_profile/user_profile_screen";
 import Icons from 'react-native-vector-icons/FontAwesome'
 import { Image } from "react-native";
+import { ColorManager } from "../../resources/color_manager";
 
 
 const DashboardScreen = (props: any) => {
@@ -36,7 +37,7 @@ const DashboardScreen = (props: any) => {
                     default:
                         throw new Error(`Invalid route name: ${route.name}`);
                 }
-                return <Icons name={iconName} size={30} color={'black'} ></Icons>
+                return <Icons name={iconName} size={30} color={ColorManager.blackColor} ></Icons>
             },
         })}>
             <bottomTab.Screen name={RoutesName.portfolioScreen} component={PortfolioScreen} options={{ title: "Portfolio" }} />

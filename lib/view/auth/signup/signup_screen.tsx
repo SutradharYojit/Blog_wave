@@ -63,7 +63,7 @@ const SignUpScreen = (props: any) => {
                 </View>
 
                 <View style={{ marginTop: 10, flexDirection: 'row', justifyContent: 'center' }}>
-                    <Text style={{ fontSize: 16, color: 'teal', fontWeight: "400" }}>
+                    <Text style={{ fontSize: 16, color: ColorManager.tealColor, fontWeight: "400" }}>
                         {StringManager.haveAccountTxt}
                     </Text>
                     <TouchableOpacity onPress={() => {
